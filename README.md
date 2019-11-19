@@ -25,7 +25,7 @@
 - babel+corejsを使用している。（@babel/polyfillが非推奨となったため）
 
 ```shell
-> npm i -S core-js
+> npm i -S core-js@3
 ```
 
 - babelの設定は[.babelrc](./.babelrc)に記述
