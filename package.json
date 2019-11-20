@@ -27,6 +27,7 @@
     "webpack-cli": "^3.3.10"
   },
   "dependencies": {
+    "@types/node": "^12.12.11",
     "core-js": "^3.4.1"
   }
 }

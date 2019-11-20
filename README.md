@@ -36,6 +36,11 @@
 - libで呼んでいるes2019はthreeの内部でes2015+の機能を使用しているため指定している。
 - 厳格な設定は理解し次第追加。
 - typescrptの設定は[tsconfig.json]に記述
+- nodeの基本機能用の型定義ファイルを追加
+
+```shell
+> npm i -S @types/node
+```
 
 ### 運用方法
 
