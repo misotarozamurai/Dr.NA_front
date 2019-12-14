@@ -1,6 +1,7 @@
 'use strict'
 
 import {remoteVideo, peerConnection, negotiationneededCounter} from 'webrtc/prepare-connection'
+import {peerDataChannel} from 'webrtc/data-channel'
 import {wsSock} from 'signaling'
 
 //--------------------------------------------------------------------------
@@ -9,6 +10,7 @@ import {wsSock} from 'signaling'
 export const hangUp = () => {
     if(peerConnection.peerObj) {
         if(peerConnection.peerObj.iceConnectionState !== false) {
+            peerDataChannel.dataChannel.close();
             peerConnection.peerObj.close();
             peerConnection.peerObj = null;
             negotiationneededCounter.negoCount = 0;

@@ -6,8 +6,9 @@ window.URL = window.URL || window.webkitURL;
 import {sendSdp} from 'webrtc/send-sdp'
 import {hangUp} from 'webrtc/hang-up'
 import {sendIceCandidate} from 'webrtc/ice-candaidate'
+import {prepareDataChannel} from 'webrtc/data-channel'
 
-// 再生用DOM
+// カメラ映像再生用DOM
 export const remoteVideo = document.getElementById('remote-video');
 
 export const negotiationneededCounter = {
@@ -20,6 +21,7 @@ export const negotiationneededCounter = {
     }
 }
 
+// RTCPeerConnection setter getter
 export const peerConnection = {
     _peerObj: null,
     get peerObj() {
@@ -48,8 +50,12 @@ const playVideo = async(element, stream) => {
 export class PrepareNewConnection extends RTCPeerConnection {
     constructor(isOffer) {
         // SkyWayが提供するSTUNサーバを設定
+        // 「pc_config」なくても行ける
         const pc_config = {'iceServers': [{'urls': 'stun:stun.webrtc.ecl.ntt.com:3478'}]};
         super(pc_config);
+
+        // RTCPeerConnection.createDataChannel()
+        prepareDataChannel(this);
 
         // リモートのMediaStreamTrackを受信したらメディアの再生を行う
         this.ontrack = evt =>{
@@ -64,7 +70,7 @@ export class PrepareNewConnection extends RTCPeerConnection {
             } else {
                 console.log('empty ice event');
             }
-        };
+        }
 
         // Offer側でネゴシエーションが必要になったときの処理
         this.onnegotiationneeded = async() => {
