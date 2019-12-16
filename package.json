@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "watch": "webpack -w"
+    "watch": "webpack -w",
+    "bn": "babel-node ./src/index.js"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,8 @@
   },
   "dependencies": {
     "@types/node": "^12.12.11",
-    "core-js": "^3.4.1"
+    "@types/three": "^0.103.2",
+    "core-js": "^3.4.1",
+    "three": "^0.110.0"
   }
 }
