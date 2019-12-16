@@ -94,6 +94,37 @@ import 'regenerator-runtime/runtime'
 
 ## データ定義
 
+- 学内審査用JSONデータ<br />
+    Python からwebSocketを利用しクライアントに送信するJSONデータ構造
+
+    ``` json
+    {
+        "pulse": {
+            "avg": 1,
+            "datas":[
+                1,
+                1,
+                1,
+                1,
+                1
+            ]
+        },
+        "sick": {
+            "name": "",
+            "place": 0,
+            "message": ""
+        }
+    }
+    ```
+
+    - `pulse` => 脈
+        - `avg` => 平均(数値)
+        - `datas` => 脈データ(数値配列)
+    - `sick` => 病気
+        - `name` => 病気名(文字列)
+        - `place` => 発症場所(数値/ 0 = 上 : 1 = 真ん中 : 2 = 下)
+        - `message` => 病気の説明(文字列)
+
 - JSONデータ<br >
     Dr.NA_Py から`DataChannel` にて受け取るデータ構造
 
