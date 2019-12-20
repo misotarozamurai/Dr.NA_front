@@ -4,14 +4,16 @@
 // getUserMediaで、カメラを操作する
 //--------------------------------------------------------------------------
 
+// カメラをブラウザ全画面表示に設定
 const videoStyle = {
     aspectRatio: {
         exact: 1.7777777778
     }, 
     width: window.parent.screen.width,
-    high: window.parent.screen.height
+    heigh: window.parent.screen.height
+    // width: document.body.width,
+    // height: document.body.height
 }
-
 
 // ユーザからのメディア使用許可を求めて、許可されればストリームが返される。
 // 渡されたストリームからメディアの再生を行う。
