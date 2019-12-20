@@ -99,7 +99,6 @@ import 'regenerator-runtime/runtime'
 
     ``` json
     {
-        "type": "result",
         "pulse": {
             "avg": 1,
             "datas":[
@@ -118,8 +117,6 @@ import 'regenerator-runtime/runtime'
     }
     ```
 
-    - `type` => データ定義
-        - `result` => 結果データ
     - `pulse` => 脈
         - `avg` => 平均(数値)
         - `datas` => 脈データ(数値配列)
