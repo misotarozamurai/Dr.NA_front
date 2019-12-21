@@ -2,6 +2,7 @@
 
 import {getResultData} from 'action'
 
+// ----- Analysis start flag -----
 export const dataFlaw = {
     _flg: true,
     get flg() {
@@ -12,6 +13,7 @@ export const dataFlaw = {
     }
 }
 
+// ----- Socket storage -----
 export const sockObj = {
     _sock: null,
     get sock() {
