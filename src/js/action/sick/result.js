@@ -1,0 +1,110 @@
+'use strict'
+
+import {createElement, wrapperStyleToggle, removeWrapperChild} from 'element'
+import {dataFlaw, sockObj} from 'socket'
+
+const divWrapper = document.getElementById('wrapper');
+const classWrapper = ['circle_wrapper', 'wrapper_result'];
+
+//--------------------------------------------------------------------------
+// 診断結果用のメッセージを整形した後、メッセージを表示する
+//--------------------------------------------------------------------------
+// datas = sick:{name: place: message}
+
+export const resultDisplay = datas => {
+    // Create message for display
+    const messages = messageSplit(datas.message);
+    const first_text = 'あなたは将来、' + datas.name + 'に掛かると解析結果として出ました。';
+    messages.unshift(first_text);
+    const last_text = 'これで診断は以上になります。お大事にしてください。';
+    messages.push(last_text);
+
+    // Creating a display area
+    createMessageBox();
+    // Show message
+    messageDisplay(messages);
+}
+
+// ----- Splits the message and returns it in an array -----
+const messageSplit = messages => {
+    const ms_split = [];
+    while(true) {
+        // Search for punctuation
+        const punctuation = messages.indexOf('。');
+        let val_split = '';
+        // If the punctuation exceeds 35 characters, separate it with the 35th character
+        if (34 < punctuation) {
+            val_split = messages.substr(0, 35);
+            messages = messages.slice(35);
+        } else {
+            val_split = messages.substr(0, punctuation + 1);
+            messages = messages.slice(punctuation + 1);
+        }
+    
+        ms_split.push(val_split);
+        if (messages.length === 0) break;
+    }
+    return ms_split;
+}
+
+// ----- Create a box for displaying the message -----
+let messageBox = null;
+const createMessageBox = () => {
+    wrapperStyleToggle(classWrapper);
+    messageBox = createElement('div', true, ['message-box']);
+    divWrapper.appendChild(messageBox);
+}
+
+//--------------------------------------------------------------------------
+// メッセージを表示を制御します
+//--------------------------------------------------------------------------
+// ----- Display a formatted message -----
+let txtCount = 0;   // Subscript counter
+const messageDisplay = messages => {
+    // Create paragraph and insert text
+    const paragraph = createElement('p', false, ['txt_message', 'txt_style']);
+    paragraph.textContent = messages[txtCount];
+    messageBox.appendChild(paragraph);
+
+    const fade_text = document.querySelector('.txt_message');
+    fade_text.addEventListener("animationend", e => {
+        paragraph.classList.remove('txt_message');
+        txtCount ++;
+        ( async() => {
+            if(txtCount < messages.length) {
+                // Reset text after displaying 3 lines
+                if(txtCount % 3 === 0) {
+                    await removeOverMessage();
+                }
+                messageDisplay(messages);
+            } else {
+                removeReturn();
+            }
+        })();
+    });
+}
+
+// ----- Delete text in message box no -----
+const removeOverMessage = async() => {
+    await sleep(1000);
+    while(messageBox.firstChild) {
+        messageBox.removeChild(messageBox.firstChild);
+    }
+}
+
+// ----- Stop processing temporarily -----
+const sleep = msec => {
+    return new Promise( resolve => {
+       setTimeout( () => {resolve()}, msec);
+    });
+}
+
+const removeReturn = async() => {
+    console.log('hoge')
+    await sleep(8000);
+    wrapperStyleToggle(classWrapper);
+    removeWrapperChild();
+    txtCount = 0;
+    dataFlaw.flg = true;
+    sockObj.sock.send('Animation END');
+}
