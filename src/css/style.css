@@ -9,6 +9,9 @@ html, body, main, video {
     height: 100%;
 }
 
+/* -------------------------------------------------------- */
+/* カメラのスタイル                                         */
+/* -------------------------------------------------------- */
 
 .local-video {
     position: absolute;
@@ -18,6 +21,10 @@ html, body, main, video {
     bottom: 0;
     z-index: -100;
 }
+
+/* -------------------------------------------------------- */
+/* wrapperスタイル                                          */
+/* -------------------------------------------------------- */
 
 .circle_wrapper {
     position: absolute;
@@ -144,7 +151,7 @@ html, body, main, video {
 }
 
 /* -------------------------------------------------------- */
-/* テキストアニメーション                                   */
+/* プログレスバー前のテキストアニメーション                 */
 /* -------------------------------------------------------- */
 
 #text-fade {
@@ -167,6 +174,9 @@ html, body, main, video {
     100% { opacity: 0; }
 }
 
+/* -------------------------------------------------------- */
+/* 結果表示領域                                             */
+/* -------------------------------------------------------- */
 
 #message-box {
     width: 90%;
@@ -179,6 +189,9 @@ html, body, main, video {
     background-color: rgba(0,0,0,0.9);
 }
 
+/* -------------------------------------------------------- */
+/* 結果表示用のテキスト                                     */
+/* -------------------------------------------------------- */
 
 .txt_style {
     width: 95%;
@@ -187,19 +200,20 @@ html, body, main, video {
     white-space: pre;
     overflow: hidden;
     font-size: 30px;
-    font-size: 280%;
+    padding: 10px 0;
+    padding-left: 30px;
+    /* 本番 */
+    /* font-size: 280%;
     padding: 20px 0;
-    padding-left: 60px;
+    padding-left: 60px; */
 }
 
 .txt_message {
     -webkit-animation: ozDq 2s steps(70, end) ;
-    /* プロパティは順に name, duration, timing-function です */
 }
 .txt_message:after {
     content: '';
     -webkit-animation: ozPulse 1s infinite ease;
-    /* プロパティは順に name, duration, iteration-count, timing-function です */
 }
 @-webkit-keyframes ozDq { from { width: 0; } } /* 開始地点の指定 */
 @-moz-keyframes ozDq { from { width: 0 } }
@@ -212,21 +226,20 @@ from { opacity: 1; }
 to { opacity: 0; }
 }
 
-.remove_text {
+/* ------------------------------------------------- */
+/* 保留 */
+/* .remove_text {
     animation-name: over-text;
     animation-duration: 5s;
-    /* animation-timing-function: ease-out; */
-    /* animation-delay: 0; */
-    /* animation-iteration-count: 1; */
-    /* animation-direction: normal; */
+    animation-timing-function: ease-out;
+    animation-delay: 0;
+    animation-iteration-count: 1;
+    animation-direction: normal;
     animation-fill-mode: forwards;
 }
-
 
 @keyframes over-text {
     0% {opacity: 1;}
     50% {opacity: 1; transform: translateY(-10px);}
     100% { opacity: 0; transform: translateY(-20px);}
-}
-
-
+} */
