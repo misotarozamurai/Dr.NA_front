@@ -3,20 +3,17 @@
 //--------------------------------------------------------------------------
 // getUserMediaで、カメラを操作する
 //--------------------------------------------------------------------------
-
-// カメラをブラウザ全画面表示に設定
+// ----- Set camera to browser full screen view -----
 const videoStyle = {
     aspectRatio: {
         exact: 1.7777777778
     }, 
     width: window.parent.screen.width,
-    heigh: window.parent.screen.height
-    // width: document.body.width,
-    // height: document.body.height
+    height: window.parent.screen.height
 }
 
-// ユーザからのメディア使用許可を求めて、許可されればストリームが返される。
-// 渡されたストリームからメディアの再生を行う。
+// The user is asked for permission to use the media, and if so, the stream is returned.
+// Play media from the passed stream.
 export const startVideo = async() => {
     try {
         let local_stream = await navigator.mediaDevices.getUserMedia({video: videoStyle, audio: false});
@@ -26,7 +23,7 @@ export const startVideo = async() => {
     }
 }
 
-// メディアデータを取得し、メディアの再生を開始する
+// Get the media stream and start playing the media
 const playVideo = async(stream) => {
     const local_video = document.getElementById('local-video');
     local_video.srcObject = stream;
