@@ -3,7 +3,7 @@
 //--------------------------------------------------------------------------
 // DOMの生成を行います
 //--------------------------------------------------------------------------
-// Creates the specified element
+// ----- Creates the specified element -----
 // true = id : false = class
 export const createElement = (element, choice, names = []) => {
     const _element = document.createElement(element);
@@ -21,16 +21,22 @@ export const createElement = (element, choice, names = []) => {
 // Wrapperの制御を行います
 //--------------------------------------------------------------------------
 const divWrapper = document.getElementById('wrapper');
-// Change the style of wrapper and prepare for drawing animation
+// ----- Change the style of wrapper and prepare for drawing animation -----
 export const wrapperStyleToggle = (names = []) => {
     _.forEach(names, name => {
         divWrapper.classList.toggle(name);
     });
 }
 
-// Delete all child elements
+// ----- Delete all child elements -----
 export const removeWrapperChild = () => {
     while(divWrapper.firstChild) {
         divWrapper.removeChild(divWrapper.firstChild);
     }
+}
+
+// ----- Deletes the child element specified by ID -----
+export const removeSpecificChild = name => {
+    const child = document.getElementById(name);
+    divWrapper.removeChild(child);
 }
