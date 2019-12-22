@@ -1,6 +1,6 @@
 'use strict'
 
-import {createElement, wrapperStyleToggle, removeSpecificChild} from 'element'
+import {createElement, escapeHtml, wrapperStyleToggle, removeSpecificChild} from 'element'
 import {resultDisplay} from 'action/sick/result'
 
 const divWrapper = document.getElementById('wrapper');
@@ -14,7 +14,7 @@ export const createFadeText = () => {
 
     const fade_text = createElement('p', false, ['text-fade']);
     fade_text.id = 'child';
-    fade_text.textContent = 'DNA解析を開始します';
+    fade_text.textContent = escapeHtml('DNA解析を開始します');
 
     divWrapper.appendChild(fade_text);
 }
@@ -30,7 +30,7 @@ export const createCircle = (datas) => {
     const circle = createElement('div', false, ['circle']);
     circle.id = 'child';
     const circle_inner = createElement('div', false, ['circle_inner']);
-    circle_inner.textContent = 'DNA解析中';
+    circle_inner.textContent = escapeHtml('DNA解析中');
     const cup = createElement('p', true, ['cup']);
 
     // Create parent-child relationship
@@ -55,7 +55,7 @@ const startTimer = () => {
         if(num <= tgt) {
             // Display up to 100%
             if(num <= 100) {
-                cup.textContent = num + '%';
+                cup.textContent = escapeHtml(num + '%');
                 // Change style when you reach 100%
                 if(num === 100) cup.classList.add('cup_complete');
             } 

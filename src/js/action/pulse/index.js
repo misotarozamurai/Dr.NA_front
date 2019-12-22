@@ -1,6 +1,6 @@
 'use strict'
 
-import {createElement} from 'element'
+import {createElement, escapeHtml} from 'element'
 import {ecgDrawing} from 'action/pulse/pulse'
 
 //--------------------------------------------------------------------------
@@ -16,10 +16,10 @@ export const createPulse = (pulses, height) => {
     canvas.height = 80;
     // Creating a height element
     const p_height = createElement('p', false, ['height']);
-    p_height.textContent = 'height : ' + height + 'cm';
+    p_height.textContent = escapeHtml('height : ' + height + 'cm');
     // Creating AVG elements and creating icons
     const avg = createElement('p', false, ['avg']);
-    avg.textContent = 'AVG : ' + pulses.avg;
+    avg.textContent = escapeHtml('AVG : ' + pulses.avg);
     const item = createElement('span', false, ['item']);
     const heart = createElement('i', false, ['heart', 'fas', 'fa-heart']);
 

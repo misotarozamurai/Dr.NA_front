@@ -17,6 +17,16 @@ export const createElement = (element, choice, names = []) => {
     return _element;
 }
 
+// ----- Perform HTML escaping -----
+export const escapeHtml = str => {
+    str = str.replace(/&/g, '&amp;');
+    str = str.replace(/</g, '&lt;');
+    str = str.replace(/>/g, '&gt;');
+    str = str.replace(/"/g, '&quot;');
+    str = str.replace(/'/g, '&#39;');
+    return str;
+}
+
 //--------------------------------------------------------------------------
 // Wrapperの制御を行います
 //--------------------------------------------------------------------------
