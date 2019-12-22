@@ -11,7 +11,6 @@ const classWrapper = ['circle_wrapper', 'wrapper_back'];
 //--------------------------------------------------------------------------
 export const createFadeText = () => {
     wrapperStyleToggle(classWrapper);
-    console.log(classWrapper)
 
     const fade_text = createElement('p', true, ['text-fade']);
     fade_text.textContent = 'DNA解析を開始します';
@@ -22,10 +21,10 @@ export const createFadeText = () => {
 //--------------------------------------------------------------------------
 // プログレスバーの作成
 //--------------------------------------------------------------------------
-// Create a progress bar
-let ary = null;
+// ----- Create a progress bar -----
+let aryMessage = null;
 export const createCircle = (datas) => {
-    ary = datas;
+    aryMessage = datas;
     // Create an element
     const circle = createElement('div', false, ['circle']);
     const circle_inner = createElement('div', false, ['circle_inner']);
@@ -43,6 +42,7 @@ export const createCircle = (datas) => {
 //--------------------------------------------------------------------------
 // プログレスバーの数値カウントアップを行う
 //--------------------------------------------------------------------------
+// ----- Increase the count from 0 to 100 -----
 const startTimer = () => {
     let num = 0;        // initial
     const tgt = 125;    // upper limit
@@ -63,9 +63,10 @@ const startTimer = () => {
     }, speed);
 }
 
+// ----- Remove the progress bar and display the result message -----
 const stopTimer = () => {
     clearInterval(startTimer);
     removeWrapperChild();
     wrapperStyleToggle(classWrapper);
-    resultDisplay(ary);
+    resultDisplay(aryMessage);
 }
