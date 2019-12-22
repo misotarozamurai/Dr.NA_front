@@ -31,6 +31,8 @@ export const wrapperStyleToggle = (names = []) => {
 // Delete all child elements
 export const removeWrapperChild = () => {
     while(divWrapper.firstChild) {
+        // divWrapper.firstChild.nodeName === 'CANVAS' 
+        
         divWrapper.removeChild(divWrapper.firstChild);
     }
 }

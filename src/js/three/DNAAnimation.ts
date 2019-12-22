@@ -1,9 +1,6 @@
 import * as THREE from 'three';
-import BaseMesh from './parts/BaseMesh';
-import NanoMachine from './parts/NanoMachine';
-import DNA from './parts/DNA';
+import {BaseMesh,NanoMachine,DNA,Pair} from './parts';
 import Util from './Utility';
-import Pair from './parts/Pair';
 import DNACannon from './DNACannon';
 import DNATween from './DNATween';
 
@@ -56,7 +53,7 @@ export default class DNAAnimation {
     //debug
     private _isComplete = false;
 
-    constructor(){
+    constructor(parentDom: HTMLElement){
 
         // three
         this.scene = new THREE.Scene();    
@@ -94,7 +91,7 @@ export default class DNAAnimation {
         this.cannon = new DNACannon(this.scene,this.targetNM,targetPair,this.targetBase);
         
         // this.scene.add(this);
-        document.body.appendChild(this.dom);
+        parentDom.appendChild(this.dom);
     }
 
     private initRenderer():THREE.WebGLRenderer {
@@ -165,7 +162,7 @@ export default class DNAAnimation {
     }
 
     public start(): void {
-        console.log('DNA Animation is Start!!!!!!');
+        console.log('DNA Animation is Start!!!!!');
         this.tween.start();
     }
 
@@ -185,26 +182,25 @@ export default class DNAAnimation {
         });
     }
 
+    private close(): void {
+        console.log('DNAAnimation is Complete!!!!!');
+    }
+
     public animate(): void {
-        requestAnimationFrame(this.animate.bind(this));
+        if(!this.tween.isComplete){
+            console.log('rendering now');
+            requestAnimationFrame(this.animate.bind(this));
+        }else{
+            this.close();
+        }
 
         // this.controls.update();
 
+        // updating is object gesture , tween , cannonWorld
         this.update();
         this.gesture();
-       
-        // this.camera.lookAt(this.targetClone.getWorldPosition(new THREE.Vector3));
-        // this.light.position.y -=1;
-        // this.light.lookAt(this.targetBase.position);
-        // console.log(this.targetBase);
 
-        // this.hoge.tailRotate(Util.rad(-5));
-        
-        // this.hoge.setMaterial(new THREE.MeshPhongMaterial({color:0x06f0ff}));
-        
         // cannon
-        
-        
         this.cannon.nm.setStatus(this.targetNM.getObjectStatus());
         if(this.cannon.collision){
             this.targetBase.setStatus(this.cannon.target.getObjectStatus());

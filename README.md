@@ -92,6 +92,12 @@ import 'regenerator-runtime/runtime'
 > npm run watch
 ```
 
+- 保存時ビルド＆ブラウザ更新
+
+```shell
+> npm run serve
+```
+
 ## データ定義
 
 - 学内審査用JSONデータ<br />
@@ -155,3 +161,15 @@ import 'regenerator-runtime/runtime'
         }
     }
     ```
+
+## その他設定
+
+### webserver
+
+- port: 8080
+
+### browser-sync
+
+- port: 80
+
+### 

@@ -1,10 +1,7 @@
 import TWEEN from '@tweenjs/tween.js';
 import * as THREE from 'three';
 import Util from './Utility';
-import NanoMachine from './parts/NanoMachine';
-import BaseMesh from './parts/BaseMesh';
-import Pair from './parts/Pair';
-import DNA from './parts/DNA';
+import {NanoMachine,BaseMesh,Pair} from './parts';
 
 
 export default class DNATween {
@@ -25,6 +22,8 @@ export default class DNATween {
     private rotateTween:    TWEEN.Tween;
     private cameraTween:    TWEEN.Tween;
     private pargeTween:     TWEEN.Tween[];
+
+    private _isComplete:     Boolean;
     
 
     constructor(nm: NanoMachine, targetPair: Pair, target: BaseMesh, materials: THREE.Material[], camera: THREE.Camera ) {
@@ -45,7 +44,8 @@ export default class DNATween {
         this.cameraTween = new TWEEN.Tween(this.camera.position)
             .to(cam_last,3000)
             .delay(1000)
-            .onUpdate(() => this.camera.lookAt(targetPair.position));
+            .onUpdate(() => this.camera.lookAt(targetPair.position))
+            .onComplete(()=> this._isComplete = true);
 
         this.pargeTween = [];
         materials.forEach((material) => this.pargeTween.push(new TWEEN.Tween(material).to({opacity:0},1000)));
@@ -62,14 +62,14 @@ export default class DNATween {
             .onComplete(this.moveComplete)
             .chain(this.rotateTween,...this.pargeTween);    
 
-
-        console.log(this.camera.position);
         // const middlePos = new THREE.Vector3(this.nm.position.x,1000,this.nm.position.z);
         // this.moveFirstTween = new TWEEN.Tween(this.nm.position)
         //     .to(middlePos,3000)
         //     .easing(TWEEN.Easing.Quadratic.Out)
         //     .onUpdate(this.moveUpdate)
         //     .chain(this.moveEndTween);
+
+        this._isComplete = false;
     }
 
     private rotateNm(): void {
@@ -98,12 +98,12 @@ export default class DNATween {
 
     public start(): void {this.moveEndTween.start()};
 
-    public isStarting(): boolean {
-        return this.moveEndTween.isPlaying();
+    get isComplete(): Boolean {
+        return this._isComplete;
     }
 
     public update = (): void => {
-        console.log(this.camera.position);
+        // console.log(this.camera.position);
         this.target.getWorldPosition(this.targetPos);
         this.prevNmPos = this.nm.position.clone();
         TWEEN.update();

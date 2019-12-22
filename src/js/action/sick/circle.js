@@ -2,6 +2,7 @@
 
 import {createElement, wrapperStyleToggle, removeWrapperChild} from 'element'
 import {resultDisplay} from 'action/sick/result'
+import { async } from 'regenerator-runtime';
 
 const divWrapper = document.getElementById('wrapper');
 const classWrapper = ['circle_wrapper', 'wrapper_back'];
@@ -24,7 +25,7 @@ export const createFadeText = () => {
 //--------------------------------------------------------------------------
 // Create a progress bar
 let ary = null;
-export const createCircle = (datas) => {
+export const  createCircle = (datas) => {
     ary = datas;
     // Create an element
     const circle = createElement('div', false, ['circle']);
@@ -38,6 +39,7 @@ export const createCircle = (datas) => {
     divWrapper.appendChild(circle);
 
     startTimer();
+    console.log('hogehoge');
 }
 
 //--------------------------------------------------------------------------
@@ -65,7 +67,7 @@ const startTimer = () => {
 
 const stopTimer = () => {
     clearInterval(startTimer);
-    removeWrapperChild();
+    // removeWrapperChild();
     wrapperStyleToggle(classWrapper);
     resultDisplay(ary);
 }
