@@ -1,7 +1,7 @@
 'use strict'
 
 import {createCircle, createFadeText} from 'action/sick/circle'
-import {removeWrapperChild} from 'element'
+import {removeSpecificChild} from 'element'
 // import {resultDisplay} from 'action/sick/result'
 // import {DNAAnimation} from './three/DNAAnimation'
 //--------------------------------------------------------------------------
@@ -16,9 +16,9 @@ export const animationPlayback = datas => {
     // }
 
     createFadeText();
-    const fade_text = document.querySelector('#text-fade');
+    const fade_text = document.querySelector('.text-fade');
     fade_text.addEventListener("animationend", e => {
-        removeWrapperChild();
+        removeSpecificChild('child');
         createCircle(datas);
     });
 }

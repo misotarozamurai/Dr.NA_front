@@ -1,6 +1,6 @@
 'use strict'
 
-import {createElement, wrapperStyleToggle, removeWrapperChild} from 'element'
+import {createElement, wrapperStyleToggle, removeSpecificChild} from 'element'
 import {resultDisplay} from 'action/sick/result'
 
 const divWrapper = document.getElementById('wrapper');
@@ -12,7 +12,8 @@ const classWrapper = ['circle_wrapper', 'wrapper_back'];
 export const createFadeText = () => {
     wrapperStyleToggle(classWrapper);
 
-    const fade_text = createElement('p', true, ['text-fade']);
+    const fade_text = createElement('p', false, ['text-fade']);
+    fade_text.id = 'child';
     fade_text.textContent = 'DNA解析を開始します';
 
     divWrapper.appendChild(fade_text);
@@ -27,6 +28,7 @@ export const createCircle = (datas) => {
     aryMessage = datas;
     // Create an element
     const circle = createElement('div', false, ['circle']);
+    circle.id = 'child';
     const circle_inner = createElement('div', false, ['circle_inner']);
     circle_inner.textContent = 'DNA解析中';
     const cup = createElement('p', true, ['cup']);
@@ -66,7 +68,7 @@ const startTimer = () => {
 // ----- Remove the progress bar and display the result message -----
 const stopTimer = () => {
     clearInterval(startTimer);
-    removeWrapperChild();
+    removeSpecificChild('child');
     wrapperStyleToggle(classWrapper);
     resultDisplay(aryMessage);
 }
