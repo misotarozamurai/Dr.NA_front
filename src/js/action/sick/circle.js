@@ -4,6 +4,7 @@ import {createElement, escapeHtml, wrapperStyleToggle, removeSpecificChild} from
 import {resultDisplay} from 'action/sick/result'
 import DNAAnimation from '../../three/DNAAnimation';
 import { isFunction } from 'util';
+import {createFadeText} from 'action/sick/fade-text'
 
 const divWrapper = document.getElementById('wrapper');
 const classWrapper = ['circle_wrapper', 'wrapper_back'];
@@ -11,15 +12,15 @@ const classWrapper = ['circle_wrapper', 'wrapper_back'];
 //--------------------------------------------------------------------------
 // プログレスバー作成前のアニメーションを作成
 //--------------------------------------------------------------------------
-export const createFadeText = () => {
-    wrapperStyleToggle(classWrapper);
+// export const createFadeText = () => {
+//     wrapperStyleToggle(classWrapper);
 
-    const fade_text = createElement('p', false, ['text-fade']);
-    fade_text.id = 'child';
-    fade_text.textContent = escapeHtml('DNA解析を開始します');
+//     const fade_text = createElement('p', false, ['text-fade']);
+//     fade_text.id = 'child';
+//     fade_text.textContent = escapeHtml('DNA解析を開始します');
 
-    divWrapper.appendChild(fade_text);
-}
+//     divWrapper.appendChild(fade_text);
+// }
 
 //--------------------------------------------------------------------------
 // プログレスバーの作成
@@ -69,8 +70,22 @@ const startTimer = (animation) => {
 // ----- Remove the progress bar and display the result message -----
 const stopTimer = (animation) => {
     clearInterval(startTimer);
+    // remove child element
     removeSpecificChild('child');
-    wrapperStyleToggle(classWrapper);
-    animation.start();
-    resultDisplay(aryMessage);
+
+    createFadeText('DNA解析完了');
+
+    const fade_text = document.querySelector('.text-fade');
+    fade_text.addEventListener("animationend", e => {
+        // new Three
+        removeSpecificChild('child');
+        createFadeText('治療を開始します');
+        const fade_text = document.querySelector('.text-fade');
+        fade_text.addEventListener("animationend", e => {
+            // remove child element
+            removeSpecificChild('child');
+            wrapperStyleToggle(classWrapper);
+            resultDisplay(aryMessage);
+        });
+    });
 }
