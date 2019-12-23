@@ -1,25 +1,33 @@
 'use strict'
 
-import {createCircle, createFadeText} from 'action/sick/circle'
-import {removeSpecificChild} from 'element'
-// import {resultDisplay} from 'action/sick/result'
-// import {DNAAnimation} from './three/DNAAnimation'
+import {createCircle} from 'action/sick/circle'
+import {removeSpecificChild, wrapperStyleToggle} from 'element'
+import {createFadeText} from 'action/sick/fade-text'
+
 //--------------------------------------------------------------------------
 // 病気の解析を受け取りアニメーションを再生する
 //--------------------------------------------------------------------------
 export const animationPlayback = datas => {
-    // const animation = await new DNAAnimation();
-    // if(animation) {
-    //     document.body.appendChild(animation.Dom);
-    //     // アニメーションを再生する
-    //     animation.animate();
-    // }
+    // add wrapper class
+    const class_wrapper = ['circle_wrapper', 'wrapper_back'];
+    wrapperStyleToggle(class_wrapper);
 
-    createFadeText();
+    createFadeText('ナノマシンを注入しました');
+
     const fade_text = document.querySelector('.text-fade');
     fade_text.addEventListener("animationend", e => {
+        // remove child element
         removeSpecificChild('child');
-        createCircle(datas);
+
+        createFadeText('DNA解析を開始します');
+
+        const fade_text = document.querySelector('.text-fade');
+        fade_text.addEventListener("animationend", e => {
+            // remove child element
+            removeSpecificChild('child');
+
+            createCircle(datas);
+        });
     });
 }
 
