@@ -43,4 +43,4 @@ http.createServer((req,res)=>{
         res.writeHead(code,{"Location":"/public/index.html"});
     }
     res.end();
-}).listen(8080,()=>console.log("node web server is start!"));
+}).listen(80,()=>console.log("node web server is start!"));

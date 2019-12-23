@@ -164,14 +164,16 @@ import 'regenerator-runtime/runtime'
 
 ## その他設定
 
-### webserver
-
-- port: 8080
-
-### browser-sync
+### webserver(イルPC)
 
 - port: 80
 
-### signaling
+### browser-sync
 
-- 
+- port: 8888
+
+### signaling（まさかつPC）
+
+- port: 8080
+
+### cliant(里中PC)

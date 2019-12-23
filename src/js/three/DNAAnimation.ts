@@ -26,10 +26,12 @@ export default class DNAAnimation {
      ***********************************************/
     private scene:          THREE.Scene;
     private renderer:       THREE.WebGLRenderer;
-    private dom:            HTMLCanvasElement;
+    private _dom:           HTMLCanvasElement;
     private camera:         THREE.PerspectiveCamera;
     private light:          THREE.Light;
 
+    private CompleteEvent:  Event;
+    private animationID:    number;
 
     // objects
     private nanoMachines:   NanoMachine[];
@@ -49,8 +51,6 @@ export default class DNAAnimation {
      **********************************************/
     private cannon:         DNACannon;
     
-    //debug
-    private _isComplete = false;
 
     constructor(parentDom: HTMLElement){
 
@@ -58,12 +58,12 @@ export default class DNAAnimation {
         this.scene = new THREE.Scene();    
 
         this.renderer = this.initRenderer();
-        this.dom = this.initDom();
-
-        this.dom.setAttribute('z-index','-10000');
-
+        this._dom = this.initDom();
         this.camera = this.initCamera(this.scene);
         this.light = this.initLight(this.scene);
+
+        this.CompleteEvent = new Event('DNAisComplete');
+        this.animationID = 0;
         
         this.nanoMachines = this.createNanoMachines();
         this.DNA = new DNA(this.PAIR_NUMBER);
@@ -145,7 +145,9 @@ export default class DNAAnimation {
         this.camera.updateProjectionMatrix();
     }
 
-    
+    get dom(): HTMLCanvasElement {
+        return this._dom;
+    }
 
     private createMaterial(): THREE.MeshStandardMaterial {
         const getSaturation = ()=> {
@@ -171,10 +173,6 @@ export default class DNAAnimation {
         return nanomachines;
     }
 
-    get isComplete(): boolean {
-        return this._isComplete;
-    }
-
     public setup() {
         console.log('DNA Animation is Setup!!!!!');
         this.dom.style.zIndex = '50';
@@ -187,7 +185,9 @@ export default class DNAAnimation {
 
     private close(): void {
         console.log('DNAAnimation is Complete!!!!!');
+        cancelAnimationFrame(this.animationID);
         this.dom.parentElement?.removeChild(this.dom);
+        this.dom.dispatchEvent(this.CompleteEvent);
     }
 
     private update(): void {
@@ -207,10 +207,10 @@ export default class DNAAnimation {
     }
 
     private animate(): void {
-        if(!this.tween.isComplete){
-            requestAnimationFrame(this.animate.bind(this));
-        }else{
+        this.animationID = requestAnimationFrame(this.animate.bind(this));
+        if(this.tween.isComplete){
             this.close();
+            // setTimeout(() => this.close(),5000);
         }
 
         // this.controls.update();

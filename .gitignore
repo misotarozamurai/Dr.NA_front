@@ -62,3 +62,6 @@ typings/
 
 # DS_Store ignore
 .DS_Store
+
+# dist directory ignore
+

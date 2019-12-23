@@ -82,11 +82,11 @@ const stopTimer = (animation) => {
         createFadeText('治療を開始します');
         const fade_text = document.querySelector('.text-fade');
         fade_text.addEventListener("animationend", e => {
+            animation.dom.addEventListener('DNAisComplete',() => resultDisplay(aryMessage));
             animation.start();
             // remove child element
             removeSpecificChild('child');
             wrapperStyleToggle(classWrapper);
-            resultDisplay(aryMessage);
         });
     });
 }
