@@ -41,7 +41,6 @@ export class WsSock extends WebSocket {
         this.onmessage = evt => {
             console.log('webSocket onmessage()');
             const message = JSON.parse(evt.data);
-            console.log(message);
             switch(message.type) {
                 case "result":
                     if(dataFlaw.flg) {

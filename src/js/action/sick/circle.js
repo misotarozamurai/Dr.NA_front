@@ -1,8 +1,9 @@
 'use strict'
 
-import {createElement, wrapperStyleToggle, removeWrapperChild} from 'element'
+import {createElement, wrapperStyleToggle, removeSpecificChild} from 'element'
 import {resultDisplay} from 'action/sick/result'
-import { async } from 'regenerator-runtime';
+import DNAAnimation from '../../three/DNAAnimation';
+import { isFunction } from 'util';
 
 const divWrapper = document.getElementById('wrapper');
 const classWrapper = ['circle_wrapper', 'wrapper_back'];
@@ -12,9 +13,9 @@ const classWrapper = ['circle_wrapper', 'wrapper_back'];
 //--------------------------------------------------------------------------
 export const createFadeText = () => {
     wrapperStyleToggle(classWrapper);
-    console.log(classWrapper)
 
-    const fade_text = createElement('p', true, ['text-fade']);
+    const fade_text = createElement('p', false, ['text-fade']);
+    fade_text.id = 'child';
     fade_text.textContent = 'DNA解析を開始します';
 
     divWrapper.appendChild(fade_text);
@@ -23,12 +24,13 @@ export const createFadeText = () => {
 //--------------------------------------------------------------------------
 // プログレスバーの作成
 //--------------------------------------------------------------------------
-// Create a progress bar
-let ary = null;
-export const  createCircle = (datas) => {
-    ary = datas;
+// ----- Create a progress bar -----
+let aryMessage = null;
+export const createCircle = (datas, animation) => {
+    aryMessage = datas;
     // Create an element
     const circle = createElement('div', false, ['circle']);
+    circle.id = 'child';
     const circle_inner = createElement('div', false, ['circle_inner']);
     circle_inner.textContent = 'DNA解析中';
     const cup = createElement('p', true, ['cup']);
@@ -38,14 +40,13 @@ export const  createCircle = (datas) => {
     circle.appendChild(circle_inner);
     divWrapper.appendChild(circle);
 
-    startTimer();
-    console.log('hogehoge');
+    startTimer(animation);
 }
-
 //--------------------------------------------------------------------------
 // プログレスバーの数値カウントアップを行う
 //--------------------------------------------------------------------------
-const startTimer = () => {
+// ----- Increase the count from 0 to 100 -----
+const startTimer = (animation) => {
     let num = 0;        // initial
     const tgt = 125;    // upper limit
     const speed = 80;   // speed
@@ -60,14 +61,16 @@ const startTimer = () => {
                 if(num === 100) cup.classList.add('cup_complete');
             } 
             num ++;
-            if(num === tgt) stopTimer();
+            if(num === tgt) stopTimer(animation);
         }
     }, speed);
 }
 
-const stopTimer = () => {
+// ----- Remove the progress bar and display the result message -----
+const stopTimer = (animation) => {
     clearInterval(startTimer);
-    // removeWrapperChild();
+    removeSpecificChild('child');
     wrapperStyleToggle(classWrapper);
-    resultDisplay(ary);
+    animation.start();
+    resultDisplay(aryMessage);
 }

@@ -44,7 +44,6 @@ export default class DNAAnimation {
      **********************************************/
     private tween:          DNATween;
     
-
     /**********************************************
      * Cannon
      **********************************************/
@@ -59,7 +58,10 @@ export default class DNAAnimation {
         this.scene = new THREE.Scene();    
 
         this.renderer = this.initRenderer();
-        this.dom = this.renderer.domElement;
+        this.dom = this.initDom();
+
+        this.dom.setAttribute('z-index','-10000');
+
         this.camera = this.initCamera(this.scene);
         this.light = this.initLight(this.scene);
         
@@ -85,13 +87,25 @@ export default class DNAAnimation {
         ];
 
         this.tween = new DNATween(this.targetNM,targetPair,this.targetClone,nmMaterials,this.camera);  
-     
 
         // cannon
         this.cannon = new DNACannon(this.scene,this.targetNM,targetPair,this.targetBase);
         
         // this.scene.add(this);
         parentDom.appendChild(this.dom);
+        this.animate();
+    }
+
+    private initDom(): HTMLCanvasElement {
+        const dom = this.renderer.domElement;
+        dom.id = 'DNAAnimationn';
+        dom.style.top = '0';
+        dom.style.right = '0';
+        dom.style.bottom = '0';
+        dom.style.left = '0';
+        dom.style.position = 'absolute';
+        dom.style.zIndex = '-100';
+        return dom;
     }
 
     private initRenderer():THREE.WebGLRenderer {
@@ -163,7 +177,13 @@ export default class DNAAnimation {
 
     public start(): void {
         console.log('DNA Animation is Start!!!!!');
+        this.dom.style.zIndex = '100';
         this.tween.start();
+    }
+
+    private close(): void {
+        console.log('DNAAnimation is Complete!!!!!');
+        this.dom.parentElement?.removeChild(this.dom);
     }
 
     private update(): void {
@@ -182,13 +202,8 @@ export default class DNAAnimation {
         });
     }
 
-    private close(): void {
-        console.log('DNAAnimation is Complete!!!!!');
-    }
-
     public animate(): void {
         if(!this.tween.isComplete){
-            console.log('rendering now');
             requestAnimationFrame(this.animate.bind(this));
         }else{
             this.close();

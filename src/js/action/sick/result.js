@@ -9,8 +9,8 @@ const classWrapper = ['circle_wrapper', 'wrapper_result'];
 //--------------------------------------------------------------------------
 // 診断結果用のメッセージを整形した後、メッセージを表示する
 //--------------------------------------------------------------------------
+// ----- When the progress bar is deleted, receive the display data and display it -----
 // datas = sick:{name: place: message}
-
 export const resultDisplay = datas => {
     // Create message for display
     const messages = messageSplit(datas.message);
@@ -70,16 +70,16 @@ const messageDisplay = messages => {
     fade_text.addEventListener("animationend", e => {
         paragraph.classList.remove('txt_message');
         txtCount ++;
-        ( async() => {
+        (async() => {
             if(txtCount < messages.length) {
                 // Reset text after displaying 3 lines
                 if(txtCount % 3 === 0) {
                     await removeOverMessage();
                 }
                 messageDisplay(messages);
-            } else {
-                removeReturn();
+                return
             }
+            removeReturn();
         })();
     });
 }
@@ -99,8 +99,8 @@ const sleep = msec => {
     });
 }
 
+// ----- End presentation and return to beginning -----
 const removeReturn = async() => {
-    console.log('hoge')
     await sleep(8000);
     wrapperStyleToggle(classWrapper);
     removeWrapperChild();
