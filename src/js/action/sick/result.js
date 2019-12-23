@@ -1,6 +1,6 @@
 'use strict'
 
-import {createElement, wrapperStyleToggle, removeWrapperChild} from 'element'
+import {createElement, escapeHtml, wrapperStyleToggle, removeWrapperChild} from 'element'
 import {dataFlaw, sockObj} from 'socket'
 
 const divWrapper = document.getElementById('wrapper');
@@ -63,7 +63,7 @@ let txtCount = 0;   // Subscript counter
 const messageDisplay = messages => {
     // Create paragraph and insert text
     const paragraph = createElement('p', false, ['txt_message', 'txt_style']);
-    paragraph.textContent = messages[txtCount];
+    paragraph.textContent = escapeHtml(messages[txtCount]);
     messageBox.appendChild(paragraph);
 
     const fade_text = document.querySelector('.txt_message');

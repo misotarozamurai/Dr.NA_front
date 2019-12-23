@@ -8,13 +8,23 @@
 export const createElement = (element, choice, names = []) => {
     const _element = document.createElement(element);
     if(choice) {
-        _element.id = names[0];
+        _element.id = escapeHtml(names[0]);
         return _element;
     }
     _.forEach(names, name => {
-        _element.classList.add(name);
+        _element.classList.add(escapeHtml(name));
     });
     return _element;
+}
+
+// ----- Perform HTML escaping -----
+export const escapeHtml = str => {
+    str = str.replace(/&/g, '&amp;');
+    str = str.replace(/</g, '&lt;');
+    str = str.replace(/>/g, '&gt;');
+    str = str.replace(/"/g, '&quot;');
+    str = str.replace(/'/g, '&#39;');
+    return str;
 }
 
 //--------------------------------------------------------------------------
