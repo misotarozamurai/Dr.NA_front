@@ -13,7 +13,6 @@ export const animationPlayback = datas => {
 
     // DNA animation
     let animation = new DNAAnimation(dom);
-    createFadeText();
     // add wrapper class
     const class_wrapper = ['circle_wrapper', 'wrapper_back'];
     wrapperStyleToggle(class_wrapper);
@@ -27,7 +26,6 @@ export const animationPlayback = datas => {
         removeSpecificChild('child');
         createCircle(datas,animation);
     });
-    // animation = null;
 }
 
 

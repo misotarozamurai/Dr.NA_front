@@ -3,7 +3,6 @@
 import {createElement, escapeHtml, wrapperStyleToggle, removeSpecificChild} from 'element'
 import {resultDisplay} from 'action/sick/result'
 import DNAAnimation from '../../three/DNAAnimation';
-import { isFunction } from 'util';
 import {createFadeText} from 'action/sick/fade-text'
 
 const divWrapper = document.getElementById('wrapper');
@@ -77,11 +76,13 @@ const stopTimer = (animation) => {
 
     const fade_text = document.querySelector('.text-fade');
     fade_text.addEventListener("animationend", e => {
-        // new Three
+        // DNAAnimation setup
+        animation.setup();
         removeSpecificChild('child');
         createFadeText('治療を開始します');
         const fade_text = document.querySelector('.text-fade');
         fade_text.addEventListener("animationend", e => {
+            animation.start();
             // remove child element
             removeSpecificChild('child');
             wrapperStyleToggle(classWrapper);

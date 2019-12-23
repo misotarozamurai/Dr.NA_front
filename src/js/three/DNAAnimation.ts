@@ -175,9 +175,13 @@ export default class DNAAnimation {
         return this._isComplete;
     }
 
+    public setup() {
+        console.log('DNA Animation is Setup!!!!!');
+        this.dom.style.zIndex = '50';
+    }
+
     public start(): void {
         console.log('DNA Animation is Start!!!!!');
-        this.dom.style.zIndex = '100';
         this.tween.start();
     }
 
@@ -202,7 +206,7 @@ export default class DNAAnimation {
         });
     }
 
-    public animate(): void {
+    private animate(): void {
         if(!this.tween.isComplete){
             requestAnimationFrame(this.animate.bind(this));
         }else{
