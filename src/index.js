@@ -1,7 +1,7 @@
 'use strict'
 
 import 'reset_style.css'
-import 'style.css'
+import 'style.sass'
 import 'core-js'
 import 'regenerator-runtime/runtime'
 import _ from 'lodash'
