@@ -5,9 +5,7 @@ import Pair from './parts/Pair';
 import NanoMachine from './parts/NanoMachine';
 
 export default class DNACannon {
-
-    private debug_renderer: any;
-
+    
     private STEP_NUM = 1/60;
 
     private world:      CANNON.World;
@@ -18,10 +16,6 @@ export default class DNACannon {
 
     constructor(scene: THREE.Scene, nm: NanoMachine, targetPair: Pair, target: BaseMesh) {
         this.world = this.initWorld();
-
-        const cdr = require('cannon/tools/threejs/CannonDebugRenderer.js');
-        this.debug_renderer = new cdr(scene,this.world);
-
 
         this._collision = false;
         this._nm = new BaseBody(nm.getObjectStatus());

@@ -42,13 +42,13 @@ export default class DNATween {
         const cam_last = new THREE.Vector3(this.CAMERA_PULL,targetPair.position.y,this.CAMERA_PULL);
 
         this.cameraTween = new TWEEN.Tween(this.camera.position)
-            .to(cam_last,3000)
+            .to(cam_last,3500)
             .delay(1000)
             .onUpdate(() => this.camera.lookAt(targetPair.position))
             .onComplete(()=> this._isComplete = true);
 
         this.pargeTween = [];
-        materials.forEach((material) => this.pargeTween.push(new TWEEN.Tween(material).to({opacity:0},1000)));
+        materials.forEach((material) => this.pargeTween.push(new TWEEN.Tween(material).to({opacity:0},1500)));
         this.pargeTween[0].onComplete(()=>nm.remove(nm.horns,nm.tail));
 
         this.rotateTween = new TWEEN.Tween(this.nm.quaternion)
@@ -56,7 +56,7 @@ export default class DNATween {
             .chain(this.cameraTween);
 
         this.moveEndTween = new TWEEN.Tween(this.nm.position)
-            .to(this.targetPos,3000)
+            .to(this.targetPos,7000)
             .easing(TWEEN.Easing.Quadratic.In)
             .onUpdate(this.moveUpdate)
             .onComplete(this.moveComplete)
@@ -96,7 +96,9 @@ export default class DNATween {
         this.nm.position.copy(this.target.position);
     }
 
-    public start(): void {this.moveEndTween.start()};
+    public start(): void {this.moveEndTween.start()}
+
+    public isPlaying(): boolean{return this.moveEndTween.isPlaying() || this.rotateTween.isPlaying() || this.cameraTween.isPlaying()} 
 
     get isComplete(): Boolean {
         return this._isComplete;

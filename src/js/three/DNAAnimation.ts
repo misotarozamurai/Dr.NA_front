@@ -150,25 +150,27 @@ export default class DNAAnimation {
     }
 
     private createMaterial(): THREE.MeshStandardMaterial {
-        const getSaturation = ()=> {
-            const max = 256;
-            const under = 200;
-            const top = max - under;
-            return under + Math.round(Math.random() * top);
-        }
         let color = 1;
-        for(let i=0; i<3 ; i++)color *= getSaturation();
+        for(let i=0; i<3 ; i++)color *= Util.rand_r(256,200);
         console.log('NanoMachine Color:','0x' + color.toString());
         return new THREE.MeshStandardMaterial({color:color-1});
     }
 
+    private createPosition(): THREE.Vector3 {
+        const x = Util.rand_r(150,50)-100;
+        const y = Util.rand_r(50,10);
+        const z = Util.rand_r(150,50)-100;     
+        console.log('nmpos:',x,y,z);  
+        return new THREE.Vector3(x,y,z);
+    }
     private createNanoMachines(): NanoMachine[] {
         const nanomachines = [];
         for(let i = 0; i <= this.NM_NUMBER; i++){
             const material = this.createMaterial();
-            nanomachines.push(new NanoMachine(material));
+            const nm = new NanoMachine(material);
+            nm.position.copy(this.createPosition());
+            nanomachines.push(nm);
         }
-        nanomachines.forEach((nm: NanoMachine, index: number)=>nm.position.set(index*5-100,0,-100));
         this.scene.add(...nanomachines);
         return nanomachines;
     }
@@ -201,8 +203,9 @@ export default class DNAAnimation {
         this.targetNM.tailRotate(tail_rotate_rad);
         this.targetNM.rotateX(this.ROTATE_RAD);
         this.nanoMachines.forEach((nm: NanoMachine) => {
-             nm.tailRotate(tail_rotate_rad);
-             nm.rotateX(this.ROTATE_RAD);
+            nm.tailRotate(tail_rotate_rad);
+            nm.rotateX(this.ROTATE_RAD);
+            if(this.tween.isPlaying())nm.position.y += Math.random();
         });
     }
 

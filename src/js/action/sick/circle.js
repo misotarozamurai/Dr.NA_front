@@ -82,7 +82,7 @@ const stopTimer = (animation) => {
         createFadeText('治療を開始します');
         const fade_text = document.querySelector('.text-fade');
         fade_text.addEventListener("animationend", e => {
-            animation.dom.addEventListener('DNAisComplete',() => resultDisplay(aryMessage));
+            animation.dom.addEventListener('DNAisComplete',() => setTimeout(() => resultDisplay(aryMessage),3000));
             animation.start();
             // remove child element
             removeSpecificChild('child');
