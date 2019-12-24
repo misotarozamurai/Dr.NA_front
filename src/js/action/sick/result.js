@@ -16,8 +16,8 @@ export const resultDisplay = datas => {
     const messages = messageSplit(datas.message);
     const first_text = 'あなたは将来、' + datas.name + 'に掛かると解析結果として出ました。';
     messages.unshift(first_text);
-    const last_text = 'これで診断は以上になります。お大事にしてください。';
-    messages.push(last_text);
+    messages.push('今回はこの病気に関するDNAを修復しました。','これからも定期的な診断をおすすめします。');
+    messages.push('これで診察は以上になります。お疲れ様でした。');
 
     // Creating a display area
     createMessageBox();
@@ -61,9 +61,14 @@ const createMessageBox = () => {
 // ----- Display a formatted message -----
 let txtCount = 0;   // Subscript counter
 const messageDisplay = messages => {
+    console.log(messages)
+    // Create and play a statement
+    const uttr = new SpeechSynthesisUtterance(messages[txtCount]);
+    speechSynthesis.speak(uttr);
+
     // Create paragraph and insert text
     const paragraph = createElement('p', false, ['txt_message', 'txt_style']);
-    paragraph.textContent = escapeHtml(messages[txtCount]);
+    paragraph.textContent = messages[txtCount];
     messageBox.appendChild(paragraph);
 
     const fade_text = document.querySelector('.txt_message');
