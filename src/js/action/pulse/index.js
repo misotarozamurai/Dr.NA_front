@@ -12,8 +12,8 @@ export const createPulse = (pulses, height) => {
     const wrpper = createElement('div', false, ['pulse_wrapper']);
     // ECG drawing element
     const canvas = createElement('canvas', true, ['pulse-canvas']);
-    canvas.width = 300;
-    canvas.height = 80;
+    canvas.width = 400;
+    canvas.height = 100;
     // Creating a height element
     const p_height = createElement('p', false, ['height']);
     p_height.textContent = escapeHtml('height : ' + height + 'cm');

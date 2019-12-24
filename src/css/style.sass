@@ -50,7 +50,7 @@ html, body, main, video
     right: 90px
     display: grid
     padding: 5px
-    grid-template-rows: 80px 25px
+    grid-template-rows: 100px 40px
     grid-template-columns: 150px 1fr
     box-shadow: 0 0 0 1px #FFF inset
     background-color: rgba(0,0,0,0.9)
@@ -63,15 +63,18 @@ html, body, main, video
 // 身長
 .height
     grid-row: 2 / 3
-    grid-column: 1 / 2
+    grid-column: 1 / 3
+    font-size: 25px
+    padding-top: 10px
     color: #eee
 
 // アイコン(ハート)
 .item
     margin: 10px auto
     color: #FF5252
-    font-size: 20px
+    font-size: 25px
     margin-right: 10px
+    padding-top: 10px
 
 // ハートの鼓動
 .heart
@@ -95,6 +98,8 @@ html, body, main, video
 .avg
     grid-row: 2 / 3
     grid-column: 3 / 4
+    padding-top: 10px
+    font-size: 25px
     color: #eee
 
 //--------------------------------------------------------------------------
@@ -237,40 +242,40 @@ html, body, main, video
     padding: 5px 0
     white-space: pre
     overflow: hidden
-    font-size: 30px
-    padding: 10px 0
-    padding-left: 30px
+    // font-size: 30px
+    // padding: 10px 0
+    // padding-left: 30px
 
     //   本番
-    font-size: 280%
-    padding: 20px 0
+    font-size: 310%
+    padding: 25px 0
     padding-left: 60px
 
 .txt_message
-    -webkit-animation: ozDq 2s steps(70, end)
+    -webkit-animation: ozDq 5.5s steps(70, end)
 
     &:after
         content: ''
         -webkit-animation: ozPulse 1s infinite ease
 
 @-webkit-keyframes ozDq
-  from
-    width: 0
+    from
+        width: 0
 
-//  開始地点の指定
+// 開始地点の指定
 @-moz-keyframes ozDq
-  from
-    width: 0
+    from
+        width: 0
 
 @-webkit-keyframes ozPulse
-//   透明度の指定
-  from
-    opacity: 1
-  to
-    opacity: 0
+// 透明度の指定
+    from
+        opacity: 1
+    to
+        opacity: 0
 
 @-moz-keyframes ozPulse
-  from
-    opacity: 1
-  to
-    opacity: 0
+    from
+        opacity: 1
+    to
+        opacity: 0
