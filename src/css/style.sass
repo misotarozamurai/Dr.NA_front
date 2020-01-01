@@ -1,9 +1,5 @@
-*
-    font-family: 'M PLUS Rounded 1c', sans-serif
-
-html, body, main, video
-    width: 100%
-    height: 100%
+@import ./reset_style.sass
+@import ./_base.sass
 
 //--------------------------------------------------------------------------
 // ローカルカメラ
@@ -193,6 +189,9 @@ html, body, main, video
     font-size: 40px
     color: #eee
     z-index: 4
+
+    &::after
+        content: "%"
 
 .cup_complete
     color: #56fa71 !important
