@@ -56,7 +56,7 @@ const startTimer = (animation) => {
         if(num <= tgt) {
             // Display up to 100%
             if(num <= 100) {
-                cup.textContent = escapeHtml(num + '%');
+                cup.textContent = num;
                 // Change style when you reach 100%
                 if(num === 100) cup.classList.add('cup_complete');
             } 
