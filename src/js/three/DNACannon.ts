@@ -1,8 +1,6 @@
 import CANNON from 'cannon';
-import BaseBody from './parts/BaseBody';
-import BaseMesh from './parts/BaseMesh';
-import Pair from './parts/Pair';
-import NanoMachine from './parts/NanoMachine';
+import {BaseBody, BaseMesh, Pair, NanoMachine} from './parts';
+
 
 export default class DNACannon {
     
