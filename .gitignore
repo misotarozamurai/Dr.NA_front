@@ -60,8 +60,8 @@ typings/
 # next.js build output
 .next
 
-# DS_Store ignore
+# DS_Store file
 .DS_Store
 
-# dist directory ignore
-
+# webpack build directory 
+dist/
