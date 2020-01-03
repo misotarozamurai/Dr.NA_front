@@ -1,10 +1,8 @@
 import * as THREE from 'three';
-import BaseMesh from './BaseMesh';
+import { BaseMesh, Horns, Tail} from './';
 import Util from '../Utility';
-import Tail from './Tail';
-import Horns from './Horns';
 
-export default class NanoMachine extends THREE.Group {
+export class NanoMachine extends THREE.Group {
     private capsule:       BaseMesh;
     private _tail:          Tail;
     private _horns:          Horns;

@@ -1,10 +1,10 @@
 import * as THREE from 'three';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
-import LoaderGroup from './LoaderGroup';
+import { LoaderGroup } from './';
 import Util from '../Utility';
 
-export default class Helixes extends LoaderGroup {
+export class Helixes extends LoaderGroup {
     private readonly FILENAME = 'dna.gltf';
     private readonly COLORS = [
         0xff5555,

@@ -1,8 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { Material } from 'cannon';
 
-export default class LoaderGroup extends THREE.Group {
+export class LoaderGroup extends THREE.Group {
     protected PATH:     string;
     protected Loader:   GLTFLoader;
     

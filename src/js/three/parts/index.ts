@@ -1,21 +1,15 @@
-import BaseBody from "./BaseBody";
-import BaseMesh from "./BaseMesh";
-import DNA from "./DNA";
-import Helixes from "./Helixes";
-import Horns from "./Horns";
-import LoaderGroup from "./LoaderGroup";
-import NanoMachine from "./NanoMachine";
-import Pair from "./Pair";
-import Tail from "./Tail";
+export * from './BaseConst';
 
-export {
-    BaseBody,
-    BaseMesh,
-    DNA,
-    Helixes,
-    Horns,
-    LoaderGroup,
-    NanoMachine,
-    Pair,
-    Tail,
-};
+export * from './BaseBody';
+export * from './BaseMesh';
+export * from './DNA';
+export * from './Helixes';
+export * from './Horns';
+export * from './LoaderGroup';
+export * from './NanoMachine';
+export * from './Pair';
+export * from './Tail';
+
+export * from './Doctor';
+
+
