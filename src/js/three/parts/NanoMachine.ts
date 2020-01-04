@@ -3,15 +3,20 @@ import { BaseMesh, Horns, Tail} from './';
 import Util from '../Utility';
 
 export class NanoMachine extends THREE.Group {
-    private capsule:       BaseMesh;
+    private speed:          number;
+
+    private capsule:        BaseMesh;
     private _tail:          Tail;
-    private _horns:          Horns;
+    private _horns:         Horns;
 
     constructor(mainMaterial: THREE.Material) {
         super();
+
+        this.speed = Math.random();
+
         const tailMaterial = mainMaterial.clone();
         tailMaterial.setValues({transparent:true,opacity:1.0});
-        console.log(tailMaterial)
+        
         this.capsule = new BaseMesh(mainMaterial);
         this._tail = new Tail(tailMaterial);
         this._horns = new Horns();
@@ -44,6 +49,10 @@ export class NanoMachine extends THREE.Group {
             position:position.toArray(),
             quaternion:quaternion.toArray(),
         };
+    }
+
+    public move(): void {
+        this.position.y += this.speed;
     }
 
     public tailRotate(rad: number) {

@@ -176,7 +176,7 @@ export default class DNAAnimation extends ThreeAnimation<THREE.PerspectiveCamera
         this.nanoMachines.forEach((nm: NanoMachine) => {
             nm.tailRotate(tail_rotate_rad);
             nm.rotateX(this.ROTATE_RAD);
-            if(this.tween.isPlaying())nm.position.y += Math.random();
+            if(this.tween.isPlaying())nm.move();
         });
     }
 
