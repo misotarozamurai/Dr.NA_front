@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 
-import { LoaderGroup } from './';
+import LoaderGroup from './LoaderGroup';
 import Util from '../Utility';
 
 export class Helixes extends LoaderGroup {

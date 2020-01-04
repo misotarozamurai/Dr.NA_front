@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
-import { LoaderGroup } from './';
+import LoaderGroup from './LoaderGroup';
 import Util from '../Utility';
 
 export class Horns extends LoaderGroup {

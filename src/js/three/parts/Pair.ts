@@ -1,5 +1,6 @@
 import * as THREE from 'three';
-import { BaseMesh, BaseConst } from './';
+import { BaseMesh } from './';
+import BaseConst from './BaseConst';
 
 export class Pair extends THREE.Group {
     private BASE_LENGTH = BaseConst.LENGTH;

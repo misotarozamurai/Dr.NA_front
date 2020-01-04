@@ -1,5 +1,5 @@
 import CANNON from 'cannon';
-import { BaseConst } from './';
+import BaseConst from './BaseConst';
 import Util from '../Utility';
 
 export class BaseBody extends CANNON.Body {

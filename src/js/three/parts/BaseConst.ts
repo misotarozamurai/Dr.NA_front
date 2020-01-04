@@ -1,4 +1,4 @@
-export class BaseConst {
+export default class BaseConst {
     static readonly DIAMETER = 1;
     static readonly LENGTH = 10;
     static readonly SEGMENTS = 50;

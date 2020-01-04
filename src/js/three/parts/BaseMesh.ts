@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { BaseConst } from './';
+import BaseConst from './BaseConst';
 import Util from '../Utility';
 
 export class BaseMesh extends THREE.Group {
