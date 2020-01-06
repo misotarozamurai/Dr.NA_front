@@ -2,11 +2,12 @@
 
 import {createElement, escapeHtml, wrapperStyleToggle, removeSpecificChild} from 'element'
 import {resultDisplay} from 'action/sick/result'
-import DNAAnimation from '../../three/DNAAnimation';
 import {createFadeText} from 'action/sick/fade-text'
 
 const divWrapper = document.getElementById('wrapper');
 const classWrapper = ['circle_wrapper', 'wrapper_back'];
+const config = CONFIG.Circle;
+
 
 //--------------------------------------------------------------------------
 // プログレスバー作成前のアニメーションを作成
@@ -47,23 +48,22 @@ export const createCircle = (datas, animation) => {
 //--------------------------------------------------------------------------
 // ----- Increase the count from 0 to 100 -----
 const startTimer = (animation) => {
-    let num = 0;        // initial
-    const tgt = 125;    // upper limit
-    const speed = 80;   // speed
+    const timerConfig = config.Count;
     const cup = document.getElementById('cup');
 
+    let num = 0;
     setInterval(() => {
-        if(num <= tgt) {
+        if(num <= timerConfig.UpperLimit) {
             // Display up to 100%
-            if(num <= 100) {
+            if(num <= timerConfig.DisplayLimit) {
                 cup.textContent = escapeHtml(num + '%');
                 // Change style when you reach 100%
-                if(num === 100) cup.classList.add('cup_complete');
+                if(num === timerConfig.DisplayLimit) cup.classList.add('cup_complete');
             } 
             num ++;
-            if(num === tgt) stopTimer(animation);
+            if(num === timerConfig.UpperLimit) stopTimer(animation);
         }
-    }, speed);
+    }, config.Count.Speed);
 }
 
 // ----- Remove the progress bar and display the result message -----
