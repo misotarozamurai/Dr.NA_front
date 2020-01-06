@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import BaseConst from './BaseConst';
 import Util from '../Utility';
 
-export default class BaseMesh extends THREE.Group {
+export class BaseMesh extends THREE.Group {
     private _material: THREE.Material;
 
     constructor(material: THREE.Material){    

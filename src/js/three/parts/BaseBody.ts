@@ -2,7 +2,7 @@ import CANNON from 'cannon';
 import BaseConst from './BaseConst';
 import Util from '../Utility';
 
-export default class BaseBody extends CANNON.Body {
+export class BaseBody extends CANNON.Body {
     constructor(initStatus: ObjectStatus){
         super({mass:10});
         this.createBase();

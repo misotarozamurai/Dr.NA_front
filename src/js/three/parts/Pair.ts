@@ -1,8 +1,8 @@
 import * as THREE from 'three';
-import BaseMesh from './BaseMesh';
+import { BaseMesh } from './';
 import BaseConst from './BaseConst';
 
-export default class Pair extends THREE.Group {
+export class Pair extends THREE.Group {
     private BASE_LENGTH = BaseConst.LENGTH;
     private BASE_POSITION = [
         -(this.BASE_LENGTH/2),

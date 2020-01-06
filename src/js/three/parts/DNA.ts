@@ -1,9 +1,8 @@
 import * as THREE from 'three';
-import Helixes from './Helixes';
+import { Helixes, Pair } from './';
 import Util from '../Utility';
-import Pair from './Pair';
 
-export default class DNA extends THREE.Group {
+export class DNA extends THREE.Group {
     private readonly PAIR_SPACE_Y = 10;
     private readonly COLOR_NUMS: ColorPair[] = [
         [0x0000aa,0xaa0000],

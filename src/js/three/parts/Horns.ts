@@ -1,9 +1,10 @@
 import * as THREE from 'three'
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import Util from '../Utility';
-import LoaderGroup from './LoaderGroup';
 
-export default class Horns extends LoaderGroup {
+import LoaderGroup from './LoaderGroup';
+import Util from '../Utility';
+
+export class Horns extends LoaderGroup {
     private readonly FILENAME = 'horn.gltf';
     private _material: THREE.Material;
 

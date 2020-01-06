@@ -2,7 +2,8 @@ import * as THREE from 'three';
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import LoaderGroup from './LoaderGroup';
 
-export default class Tail extends LoaderGroup {
+
+export class Tail extends LoaderGroup {
     private readonly FILENAME = 'tail.gltf';
     private _material: THREE.Material;
 

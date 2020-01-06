@@ -3,35 +3,28 @@ import {BaseMesh,NanoMachine,DNA,Pair} from './parts';
 import Util from './Utility';
 import DNACannon from './DNACannon';
 import DNATween from './DNATween';
+import ThreeAnimation from './ThreeAnimation';
 
 
 
-export default class DNAAnimation {
+export default class DNAAnimation extends ThreeAnimation<THREE.PerspectiveCamera> {
 
     private ROTATE_RAD = Util.rad(.5);
 
-    private PAIR_NUMBER = 23;
+    private PAIR_NUMBER     = 23;
     private TARGET_PAIR_MIN = 10;
-    private TARGET_PAIR_MAX = this.PAIR_NUMBER - (this.TARGET_PAIR_MIN + 4);
-    private TARGET_PAIR:number = this.TARGET_PAIR_MIN + Math.round(Math.random() * this.TARGET_PAIR_MAX);
-    private TARGET_BASE = +(Math.random()>.5);
+    private TARGET_PAIR     = Util.rand_r(this.PAIR_NUMBER,this.TARGET_PAIR_MIN);
+    private TARGET_BASE     = +(Math.random()>.5);
 
-    private CREATE_NM_MIN = 3;
-    private CREATE_NM_MAX = 6 - this.CREATE_NM_MIN;
-    private NM_NUMBER = this.CREATE_NM_MIN + Math.round(Math.random() * this.CREATE_NM_MAX);
-    private TARGET_NM = Math.floor(Math.random() * this.NM_NUMBER);
+    private CREATE_NM_MIN   = 3;
+    private CREATE_NM_MAX   = 6;
+    private NM_NUMBER       = Util.rand_r(this.CREATE_NM_MAX,this.CREATE_NM_MIN);
+    private TARGET_NM       = Math.floor(Math.random() * this.NM_NUMBER);
 
     /***********************************************
      * Three
      ***********************************************/
-    private scene:          THREE.Scene;
-    private renderer:       THREE.WebGLRenderer;
-    private _dom:           HTMLCanvasElement;
-    private camera:         THREE.PerspectiveCamera;
-    private light:          THREE.Light;
-
-    private CompleteEvent:  Event;
-    private animationID:    number;
+    private completeEvent:  Event;
 
     // objects
     private nanoMachines:   NanoMachine[];
@@ -53,31 +46,29 @@ export default class DNAAnimation {
     
 
     constructor(parentDom: HTMLElement){
-
-        // three
-        this.scene = new THREE.Scene();    
-
-        this.renderer = this.initRenderer();
-        this._dom = this.initDom();
-        this.camera = this.initCamera(this.scene);
-        this.light = this.initLight(this.scene);
-
-        this.CompleteEvent = new Event('DNAisComplete');
-        this.animationID = 0;
+        super();
         
-        this.nanoMachines = this.createNanoMachines();
-        this.DNA = new DNA(this.PAIR_NUMBER);
+        // three
+        this.initRenderer();
+        this.initDom();
+        this.initLight();
+
+        this.completeEvent  = new Event('DNAisComplete');
+        this.animationID    = 0;
+        
+        this.nanoMachines   = this.createNanoMachines();
+        this.DNA            = new DNA(this.PAIR_NUMBER);
         
         this.scene.add(this.DNA,...this.nanoMachines);
 
         // tween
-        this.targetNM = this.nanoMachines.splice(this.TARGET_NM,1)[0];
+        this.targetNM       = this.nanoMachines.splice(this.TARGET_NM,1)[0];
 
-        const targetPair = <Pair>this.DNA.pairs.children[this.TARGET_PAIR];
+        const targetPair    = <Pair>this.DNA.pairs.children[this.TARGET_PAIR];
 
-        this.targetBase = <BaseMesh>targetPair.children[this.TARGET_BASE];
+        this.targetBase     = <BaseMesh>targetPair.children[this.TARGET_BASE];
 
-        this.targetClone = this.targetBase.clone();
+        this.targetClone    = this.targetBase.clone();
         this.targetClone.material = new THREE.MeshBasicMaterial({transparent: true, opacity: 0});
         targetPair.add(this.targetClone);
         this.targetNM.setMaterial(new THREE.MeshNormalMaterial());
@@ -108,45 +99,25 @@ export default class DNAAnimation {
         return dom;
     }
 
-    private initRenderer():THREE.WebGLRenderer {
-        const renderer = new THREE.WebGLRenderer();
+    private initRenderer(): void {
+        const renderer = this.renderer;
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.gammaOutput = true;
         renderer.gammaFactor = 2.2;
-        return renderer;
     }
 
-    private initCamera(scene: THREE.Scene): THREE.PerspectiveCamera {
-        const camera = new THREE.PerspectiveCamera(
-            75,                                         //視野
-            window.innerWidth/window.innerHeight,       //アスペクト比
-            0.1,                                        //ニアクリッピングレーン
-            1000                                        //ファークリッピングレーン
-        );
-        scene.add(camera);
-        return camera;
-    }
-
-    private initLight(scene: THREE.Scene): THREE.Light {
+    private initLight(): void {
         const light = new THREE.DirectionalLight(0xaaaaaa);
         light.position.set(40,150,40);
         light.lookAt(0,0,0);
-        scene.add(light);
-        return light;
+        this.scene.add(light);
     }
 
     public onResize(): void {
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        this.renderer.setPixelRatio(window.devicePixelRatio);
-        this.renderer.setSize(width, height);
-        this.camera.aspect = width / height;
+        super.onResize();
+        this.camera.aspect = window.innerWidth / window.innerHeight;
         this.camera.updateProjectionMatrix();
-    }
-
-    get dom(): HTMLCanvasElement {
-        return this._dom;
     }
 
     private createMaterial(): THREE.MeshStandardMaterial {
@@ -189,7 +160,7 @@ export default class DNAAnimation {
         console.log('DNAAnimation is Complete!!!!!');
         cancelAnimationFrame(this.animationID);
         this.dom.parentElement?.removeChild(this.dom);
-        this.dom.dispatchEvent(this.CompleteEvent);
+        this.dom.dispatchEvent(this.completeEvent);
     }
 
     private update(): void {
@@ -205,20 +176,18 @@ export default class DNAAnimation {
         this.nanoMachines.forEach((nm: NanoMachine) => {
             nm.tailRotate(tail_rotate_rad);
             nm.rotateX(this.ROTATE_RAD);
-            if(this.tween.isPlaying())nm.position.y += Math.random();
+            if(this.tween.isPlaying())nm.move();
         });
     }
 
-    private animate(): void {
-        this.animationID = requestAnimationFrame(this.animate.bind(this));
+    protected animate(): void {
+        super.animate();
         if(this.tween.isComplete){
             this.close();
             // setTimeout(() => this.close(),5000);
         }
 
-        // this.controls.update();
-
-        // updating is object gesture , tween , cannonWorld
+        // updating is object gesture, tween, cannonWorld
         this.update();
         this.gesture();
 
@@ -229,8 +198,6 @@ export default class DNAAnimation {
         }else{
             this.cannon.target.setStatus(this.targetBase.getObjectStatus());
         }
-
-        this.renderer.render(this.scene,this.camera);
     }
 
 }

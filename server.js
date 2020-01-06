@@ -4,7 +4,7 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 
-const mimeTypes ={
+const mimeTypes = {
     ".html":"text/html",
     ".css":"text/css",
     ".ico":"image/x-icon",
@@ -27,20 +27,35 @@ const fileExists = (url) => {
 
 http.createServer((req,res)=>{
     const rootAccess = req.url === '/';
+
     const type = mimeTypes[path.extname(req.url)];
     const filePath = req.url.slice(1);
-    const code = rootAccess ? 302 : type && fileExists(filePath) ? 200 : 400;
+    const code = rootAccess 
+        ? 302 
+        : type && fileExists(filePath) 
+            ? 200 
+            : 400;
 
     res.statusCode = code;
+
     if(code !== 302){
-        res.writeHead(code,{"Content-Type" : type || "text/plain" + "; charset=utf-8"});
+        res.writeHead(
+            code,
+            {"Content-Type" : type || "text/plain" + "; charset=utf-8"}
+        );
         res.write(
             code !== 400
                 ? fs.readFileSync(filePath ,{encoding:"utf-8"})
                 : "file not found"
         );
     }else{
-        res.writeHead(code,{"Location":"/public/index.html"});
+        res.writeHead(
+            code,
+            {"Location":"/public/index.html"}
+        );
     }
     res.end();
-}).listen(80,()=>console.log("node web server is start!"));
+}).listen(
+    80,
+    ()=>console.log("node web server is start!")
+);
