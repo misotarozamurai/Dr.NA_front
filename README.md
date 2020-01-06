@@ -162,6 +162,33 @@ import 'regenerator-runtime/runtime'
     }
     ```
 
+## config
+
+## 命名規則
+
+- key: アッパーキャメル
+
+### 運用方法(暫定)
+
+- 基本的には、ディレクトリごとに階層を定義(ファイル単位で分けるとなおよし)
+- 配列に関しては、イテレータがあるといい場合かつ、別の解釈が生まれない場合にのみ使用
+
+- 環境ごとで替わる値だろうが、設定はまずdefault.jsonに記述すること。
+- 本番環境で値が変わる物はproduction.jsonに**同じKeyで**値を記述することでオーバーライドされる。
+- ※　上記は、記述漏れ等でconfigを参照できなくなる問題を避けるため。
+
+### Access方法
+
+- 今回は、frontendのプロジェクトのため、限定的使い方しかできない（webpack.DefinePluginsを使用）
+- CONFIGは、DefinePluginで定義した名前
+- 下の階層へは、「.」を使用してアクセスする。
+
+``` js
+// ex.)
+    const config = CONFIG.Websocket;
+    console.log(config.address);
+```
+
 ## その他設定
 
 ### webserver(イルPC)
