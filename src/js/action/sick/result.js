@@ -3,8 +3,11 @@
 import {createElement, escapeHtml, wrapperStyleToggle, removeWrapperChild} from 'element'
 import {dataFlaw, sockObj} from 'socket'
 
+const config = CONFIG.ResultDisplay;
+
 const divWrapper = document.getElementById('wrapper');
 const classWrapper = ['circle_wrapper', 'wrapper_result'];
+
 
 //--------------------------------------------------------------------------
 // 診断結果用のメッセージを整形した後、メッセージを表示する
@@ -13,11 +16,13 @@ const classWrapper = ['circle_wrapper', 'wrapper_result'];
 // datas = sick:{name: place: message}
 export const resultDisplay = datas => {
     // Create message for display
+    const messageConfig = config.Message;
+
     const messages = messageSplit(datas.message);
-    const first_text = 'あなたは将来、' + datas.name + 'に掛かると解析結果として出ました。';
+    const first_text = messageConfig.FirstWords[0] + datas.name + messageConfig.FirstWords[1];
     messages.unshift(first_text);
-    messages.push('今回はこの病気に関するDNAを修復しました。','これからも定期的な診断をおすすめします。');
-    messages.push('これで診察は以上になります。お疲れ様でした。');
+    messages.push(...messageConfig.LastWords.slice(1));
+    messages.push(messageConfig.LastWords[2]);
 
     // Creating a display area
     createMessageBox();
