@@ -1,5 +1,7 @@
 'use strict'
 
+const config = CONFIG.Element; 
+
 //--------------------------------------------------------------------------
 // DOMの生成を行います
 //--------------------------------------------------------------------------
@@ -19,11 +21,13 @@ export const createElement = (element, choice, names = []) => {
 
 // ----- Perform HTML escaping -----
 export const escapeHtml = str => {
-    str = str.replace(/&/g, '&amp;');
-    str = str.replace(/</g, '&lt;');
-    str = str.replace(/>/g, '&gt;');
-    str = str.replace(/"/g, '&quot;');
-    str = str.replace(/'/g, '&#39;');
+    const escapeConfig = config.EscapeHtml;
+    
+    str = str.replace(/&/g, escapeConfig.amp);
+    str = str.replace(/</g, escapeConfig.lt);
+    str = str.replace(/>/g, escapeConfig.gt);
+    str = str.replace(/"/g, escapeConfig.dquot);
+    str = str.replace(/'/g, escapeConfig.squot);
     return str;
 }
 
