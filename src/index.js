@@ -8,7 +8,8 @@ import _ from 'lodash'
 import {startVideo} from 'devise'
 import {WsSock} from 'socket'
 
-const webSock = new WsSock('ws://localhost:8080/');
+const config = CONFIG.WebSocket;
+const webSock = new WsSock(`ws://${config.address}:${config.port}/`);
 
 (()=> {
     startVideo();
