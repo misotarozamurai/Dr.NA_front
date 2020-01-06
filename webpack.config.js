@@ -2,6 +2,12 @@ const path = require('path');
 const MODE = "development";
 const enabledSourceMap = MODE === "development";
 
+const webpack = require('webpack');
+
+const definePlugin = new webpack.DefinePlugin({
+  CONFIG: JSON.stringify(require('config')),
+});
+
 module.exports = {
   mode: MODE,
   entry: "./src/index.js",
@@ -52,5 +58,8 @@ module.exports = {
       path.resolve(__dirname,'src/css'),
       path.resolve(__dirname,'node_modules'),
     ]
-  }
+  },
+  plugins: [
+    definePlugin
+  ]
 };

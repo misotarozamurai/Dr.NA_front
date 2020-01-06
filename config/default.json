@@ -1,0 +1,36 @@
+{
+    "BrowserSync": {
+        "WebSocket": {
+            "address": "localhost",
+            "port": "8080"
+        },
+        "Circle": {
+            "Count": {
+                "Initial": 0,
+                "DisplayLimit": 100,
+                "UpperLimit": 125,
+                "Speed": 80
+            }
+        },
+        "Element": {
+            "EscapeHtml": {
+                "amp": "&amp;",
+                "lt": "&lt;",
+                "gt": "&gt;",
+                "quot": "&quot;",
+                "#39": "&#39;"
+            }
+        },
+        "ResultDisplay": {
+            "message": {
+                "FirstWords_0": "あなたは将来、",
+                "FirstWords_1": "に掛かると解析結果として出ました。",
+                "LastWords_0": "今回はこの病気に関するDNAを修復しました。','これからも定期的な診断をおすすめします。",
+                "LastWords_1": "これで診察は以上になります。お疲れ様でした。"
+            }
+        }
+    },
+    "three": {
+        
+    }
+}
