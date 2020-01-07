@@ -21,13 +21,16 @@ export const createElement = (element, choice, names = []) => {
 
 // ----- Perform HTML escaping -----
 export const escapeHtml = str => {
-    const escapeConfig = config.EscapeHtml;
+    config.EscapeHtml.forEach( function([pattern, substr]) {
+        const regex = new RegExp(pattern, 'g');
+        str = str.replace(regex, substr);
+    });
     
-    str = str.replace(/&/g, escapeConfig.Amp);
-    str = str.replace(/</g, escapeConfig.Lt);
-    str = str.replace(/>/g, escapeConfig.Gt);
-    str = str.replace(/"/g, escapeConfig.Dquot);
-    str = str.replace(/'/g, escapeConfig.Squot);
+    // str = str.replace(/&/g, escapeConfig.Amp);
+    // str = str.replace(/</g, escapeConfig.Lt);
+    // str = str.replace(/>/g, escapeConfig.Gt);
+    // str = str.replace(/"/g, escapeConfig.Dquot);
+    // str = str.replace(/'/g, escapeConfig.Squot);
     return str;
 }
 

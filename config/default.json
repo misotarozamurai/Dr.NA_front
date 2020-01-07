@@ -11,13 +11,13 @@
         }
     },
     "Element": {
-        "EscapeHtml": {
-            "Amp": "&amp;",
-            "Lt": "&lt;",
-            "Gt": "&gt;",
-            "Dquot": "&quot;",
-            "Squot": "&#39;"
-        }
+        "EscapeHtml": [
+            ["&", "&amp;"],
+            ["<", "&lt;"],
+            [">", "&gt;"],
+            ["\"", "&quot;"],
+            ["'", "&#39;"]
+        ]
     },
     "ResultDisplay": {
         "Message": {
