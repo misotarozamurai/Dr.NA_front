@@ -19,10 +19,10 @@ export const resultDisplay = datas => {
     const messageConfig = config.Message;
 
     const messages = messageSplit(datas.message);
-    const first_text = messageConfig.FirstWords[0] + datas.name + messageConfig.FirstWords[1];
+    const first_text = messageConfig.FirstWords.Start + datas.name + messageConfig.FirstWords.End;
     messages.unshift(first_text);
-    messages.push(...messageConfig.LastWords.slice(1));
-    messages.push(messageConfig.LastWords[2]);
+    messages.push(...messageConfig.LastWords.Start);
+    messages.push(messageConfig.LastWords.End);
 
     // Creating a display area
     createMessageBox();

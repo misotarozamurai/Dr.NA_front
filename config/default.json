@@ -1,7 +1,7 @@
 {
     "WebSocket": {
-        "address": "localhost",
-        "port": "8080"
+        "Address": "localhost",
+        "Port": "8080"
     },
     "Circle": {
         "Count": {
@@ -12,24 +12,26 @@
     },
     "Element": {
         "EscapeHtml": {
-            "amp": "&amp;",
-            "lt": "&lt;",
-            "gt": "&gt;",
-            "dquot": "&quot;",
-            "squot": "&#39;"
+            "Amp": "&amp;",
+            "Lt": "&lt;",
+            "Gt": "&gt;",
+            "Dquot": "&quot;",
+            "Squot": "&#39;"
         }
     },
     "ResultDisplay": {
         "Message": {
-            "FirstWords": [
-                "あなたは将来、",
-                "に掛かると解析結果として出ました。"
-            ],
-            "LastWords": [
-                "今回はこの病気に関するDNAを修復しました。",
-                "これからも定期的な診断をおすすめします。",
-                "これで診察は以上になります。お疲れ様でした。"
-            ]
+            "FirstWords": {
+                "Start": "あなたは将来、",
+                "End": "に掛かると解析結果として出ました。"
+            },
+            "LastWords": {
+                "Start": [
+                    "今回はこの病気に関するDNAを修復しました。",
+                    "これからも定期的な診断をおすすめします。"
+                ],
+                "End": "これで診察は以上になります。お疲れ様でした。"
+            }
         }
     },
     "Three": {

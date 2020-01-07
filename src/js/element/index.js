@@ -23,11 +23,11 @@ export const createElement = (element, choice, names = []) => {
 export const escapeHtml = str => {
     const escapeConfig = config.EscapeHtml;
     
-    str = str.replace(/&/g, escapeConfig.amp);
-    str = str.replace(/</g, escapeConfig.lt);
-    str = str.replace(/>/g, escapeConfig.gt);
-    str = str.replace(/"/g, escapeConfig.dquot);
-    str = str.replace(/'/g, escapeConfig.squot);
+    str = str.replace(/&/g, escapeConfig.Amp);
+    str = str.replace(/</g, escapeConfig.Lt);
+    str = str.replace(/>/g, escapeConfig.Gt);
+    str = str.replace(/"/g, escapeConfig.Dquot);
+    str = str.replace(/'/g, escapeConfig.Squot);
     return str;
 }
 
