@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack",
     "watch": "webpack -w",
-    "serve": "webpack -w & node server.js & browser-sync start --config bs.config.js",
+    "serve:dev": "webpack -w & node server.js & browser-sync start --config bs.config.js",
+    "serve:prod": "export NODE_ENV=production & webpack --mode=production & node server.js",
     "bn": "babel-node ./src/index.js"
   },
   "repository": {
