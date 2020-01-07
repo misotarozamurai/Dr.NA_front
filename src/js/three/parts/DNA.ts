@@ -10,7 +10,7 @@ export class DNA extends THREE.Group {
     ];
 
 
-    private pariNumber:    number;
+    private pairNumber:     number;
     private _pairs:         THREE.Group;
     private colorMaterials: MaterialPair[];
 
@@ -18,7 +18,7 @@ export class DNA extends THREE.Group {
     constructor(pairNumber: number) {
         super();
 
-        this.pariNumber = pairNumber;
+        this.pairNumber = pairNumber;
         this.colorMaterials = [];
         this.COLOR_NUMS.forEach((colors: ColorPair) => {
             this.colorMaterials.push(this.createMaterialPair(colors))
@@ -32,7 +32,7 @@ export class DNA extends THREE.Group {
 
     private createPairs(): THREE.Group {
         const pairs = new THREE.Group();
-        for (let twist = -53,i = 0; i < this.pariNumber; i++) {
+        for (let twist = -53,i = 0; i < this.pairNumber; i++) {
             const color_pair_selector = Math.random() <.5;
             const pair = new Pair(this.colorMaterials[+color_pair_selector]);
             pair.position.y = i*this.PAIR_SPACE_Y;
