@@ -1,7 +1,7 @@
 'use strict'
 
-import {createElement, escapeHtml, wrapperStyleToggle, removeWrapperChild} from 'element'
-import {dataFlaw, sockObj} from 'socket'
+import {createElement, wrapperStyleToggle, removeWrapperChild} from 'element'
+import {dataFlaw, messageSend} from 'socket'
 
 const divWrapper = document.getElementById('wrapper');
 const classWrapper = ['circle_wrapper', 'wrapper_result'];
@@ -12,6 +12,8 @@ const classWrapper = ['circle_wrapper', 'wrapper_result'];
 // ----- When the progress bar is deleted, receive the display data and display it -----
 // datas = sick:{name: place: message}
 export const resultDisplay = datas => {
+    messageSend('message', 'DNA repair completed.');
+
     // Create message for display
     const messages = messageSplit(datas.message);
     const first_text = 'あなたは将来、' + datas.name + 'に掛かると解析結果として出ました。';
@@ -22,6 +24,7 @@ export const resultDisplay = datas => {
     // Creating a display area
     createMessageBox();
     // Show message
+    messageSend('message', 'Dr.NA diagnostic results.');
     messageDisplay(messages);
 }
 
@@ -111,5 +114,5 @@ const removeReturn = async() => {
     removeWrapperChild();
     txtCount = 0;
     dataFlaw.flg = true;
-    sockObj.sock.send('Animation END');
+    messageSend('Animation END', 'End of diagnosis');
 }

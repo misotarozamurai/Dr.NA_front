@@ -2,24 +2,11 @@
 
 import {createElement, escapeHtml, wrapperStyleToggle, removeSpecificChild} from 'element'
 import {resultDisplay} from 'action/sick/result'
-import DNAAnimation from '../../three/DNAAnimation';
 import {createFadeText} from 'action/sick/fade-text'
+import {messageSend} from 'socket'
 
 const divWrapper = document.getElementById('wrapper');
 const classWrapper = ['circle_wrapper', 'wrapper_back'];
-
-//--------------------------------------------------------------------------
-// プログレスバー作成前のアニメーションを作成
-//--------------------------------------------------------------------------
-// export const createFadeText = () => {
-//     wrapperStyleToggle(classWrapper);
-
-//     const fade_text = createElement('p', false, ['text-fade']);
-//     fade_text.id = 'child';
-//     fade_text.textContent = escapeHtml('DNA解析を開始します');
-
-//     divWrapper.appendChild(fade_text);
-// }
 
 //--------------------------------------------------------------------------
 // プログレスバーの作成
@@ -39,6 +26,8 @@ export const createCircle = (datas, animation) => {
     circle_inner.appendChild(cup);
     circle.appendChild(circle_inner);
     divWrapper.appendChild(circle);
+
+    messageSend('message', 'During DNA analysis.');
 
     startTimer(animation);
 }
@@ -73,13 +62,17 @@ const stopTimer = (animation) => {
     removeSpecificChild('child');
 
     createFadeText('DNA解析完了');
+    messageSend('message', 'DNA analysis completed.');
 
     const fade_text = document.querySelector('.text-fade');
     fade_text.addEventListener("animationend", e => {
         // DNAAnimation setup
         animation.setup();
         removeSpecificChild('child');
+
         createFadeText('治療を開始します');
+        messageSend('message', 'Start treatment.');
+
         const fade_text = document.querySelector('.text-fade');
         fade_text.addEventListener("animationend", e => {
             animation.dom.addEventListener('DNAisComplete',() => setTimeout(() => resultDisplay(aryMessage),3000));

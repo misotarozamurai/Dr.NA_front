@@ -4,6 +4,7 @@ import {createCircle} from 'action/sick/circle'
 import {removeSpecificChild, wrapperStyleToggle} from 'element'
 import {createFadeText} from 'action/sick/fade-text'
 import DNAAnimation from '../../three/DNAAnimation'
+import {messageSend} from 'socket'
 
 //--------------------------------------------------------------------------
 // 病気の解析を受け取りアニメーションを再生する
@@ -19,6 +20,7 @@ export const animationPlayback = datas => {
     wrapperStyleToggle(class_wrapper);
 
     createFadeText('ナノマシンを注入しました');
+    messageSend('message', 'Nano machine injected.');
 
     const fade_text = document.querySelector('.text-fade');
     fade_text.addEventListener("animationend", e => {
@@ -26,6 +28,7 @@ export const animationPlayback = datas => {
         removeSpecificChild('child');
 
         createFadeText('DNA解析を開始します');
+        messageSend('message', 'Start DNA analysis.');
 
         const fade_text = document.querySelector('.text-fade');
         fade_text.addEventListener("animationend", e => {
