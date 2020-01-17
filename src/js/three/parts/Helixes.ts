@@ -5,7 +5,7 @@ import LoaderGroup from './LoaderGroup';
 import Util from '../Utility';
 
 export class Helixes extends LoaderGroup {
-    private readonly FILENAME = 'dna.gltf';
+    private readonly config = CONFIG.Three.Parts.Filenames;
     private readonly COLORS = [
         0xff5555,
         0x5555ff
@@ -18,7 +18,7 @@ export class Helixes extends LoaderGroup {
     }
 
     private setHelixes() {
-        this.Loader.load(this.PATH + this.FILENAME, (data: GLTF)=>{
+        this.Loader.load(this.PATH + this.config.Helixes, (data: GLTF)=>{
             data.scene.children.forEach(
                 (mesh: THREE.Object3D, i: number) => {
                     (<THREE.Mesh>mesh).material = 

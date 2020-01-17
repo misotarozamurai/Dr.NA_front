@@ -5,7 +5,7 @@ import LoaderGroup from './LoaderGroup';
 import Util from '../Utility';
 
 export class Horns extends LoaderGroup {
-    private readonly FILENAME = 'horn.gltf';
+    private readonly config = CONFIG.Three.Parts.Filenames;
     private _material: THREE.Material;
 
     constructor() {
@@ -17,7 +17,7 @@ export class Horns extends LoaderGroup {
     }
 
     private setHorns() {
-        this.Loader.load(this.PATH + this.FILENAME, (data: GLTF)=>{
+        this.Loader.load(this.PATH + this.config.Horns, (data: GLTF)=>{
             const horn_scene = new THREE.Scene().copy(data.scene);
             horn_scene.children.forEach((mesh: THREE.Object3D)=>(<THREE.Mesh>mesh).material = this.material);
             horn_scene.scale.set(.5,.5,.5);

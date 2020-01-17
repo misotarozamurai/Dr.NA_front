@@ -2,12 +2,11 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 export default class LoaderGroup extends THREE.Group {
-    protected PATH:     string;
-    protected Loader:   GLTFLoader;
+    protected readonly PATH = CONFIG.Three.Parts.AssetsPath;
+    protected readonly Loader:   GLTFLoader;
     
     constructor() {
         super();
-        this.PATH = '../assets/';
         this.Loader = new GLTFLoader();
     }
 

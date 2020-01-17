@@ -3,7 +3,7 @@ import { Helixes, Pair } from './';
 import Util from '../Utility';
 
 export class DNA extends THREE.Group {
-    private readonly PAIR_SPACE_Y = 10;
+    private config = CONFIG.Three.Parts.DNA;
     private readonly COLOR_NUMS: ColorPair[] = [
         [0x0000aa,0xaa0000],
         [0x00aa00,0xaa00aa]
@@ -20,8 +20,9 @@ export class DNA extends THREE.Group {
 
         this.pairNumber = pairNumber;
         this.colorMaterials = [];
-        this.COLOR_NUMS.forEach((colors: ColorPair) => {
-            this.colorMaterials.push(this.createMaterialPair(colors))
+        this.COLOR_NUMS.forEach(
+            (colors: ColorPair) => {
+                this.colorMaterials.push(this.createMaterialPair(colors));
             }
         );
         this._pairs = this.createPairs();
@@ -35,7 +36,7 @@ export class DNA extends THREE.Group {
         for (let twist = -53,i = 0; i < this.pairNumber; i++) {
             const color_pair_selector = Math.random() <.5;
             const pair = new Pair(this.colorMaterials[+color_pair_selector]);
-            pair.position.y = i*this.PAIR_SPACE_Y;
+            pair.position.y = i * this.config.PairSpaceY;
             if(i!==0)twist-=32;
             pair.rotateY(Util.rad(twist));
             pairs.add(pair);;

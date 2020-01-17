@@ -4,7 +4,7 @@ import LoaderGroup from './LoaderGroup';
 
 
 export class Tail extends LoaderGroup {
-    private readonly FILENAME = 'tail.gltf';
+    private readonly config = CONFIG.Three.Parts.Filenames;
     private _material: THREE.Material;
 
     constructor(material: THREE.Material) {
@@ -15,7 +15,7 @@ export class Tail extends LoaderGroup {
     }
 
     private setTail = (): void => {
-        this.Loader.load(this.PATH + this.FILENAME, (data: GLTF)=>{
+        this.Loader.load(this.PATH + this.config.Tail, (data: GLTF)=>{
             const tail = data.scene;
             tail.children.forEach((mesh: THREE.Object3D)=>(<THREE.Mesh>mesh).material = this.material);
             tail.scale.set(40,25,40);

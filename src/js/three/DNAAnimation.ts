@@ -9,16 +9,20 @@ import ThreeAnimation from './ThreeAnimation';
 
 export default class DNAAnimation extends ThreeAnimation<THREE.PerspectiveCamera> {
 
-    private ROTATE_RAD = Util.rad(.5);
+    private readonly config = CONFIG.Three.DNA.Animation;
 
-    private PAIR_NUMBER     = 23;
-    private TARGET_PAIR_MIN = 10;
-    private TARGET_PAIR     = Util.rand_r(this.PAIR_NUMBER,this.TARGET_PAIR_MIN);
+    private ROTATE_RAD      = Util.rad(this.config.RotateDeg);
+
+    private TARGET_PAIR     = Util.rand_r(
+        this.config.PairNumber,
+        this.config.TargetPairMin
+    );
     private TARGET_BASE     = +(Math.random()>.5);
 
-    private CREATE_NM_MIN   = 3;
-    private CREATE_NM_MAX   = 6;
-    private NM_NUMBER       = Util.rand_r(this.CREATE_NM_MAX,this.CREATE_NM_MIN);
+    private NM_NUMBER       = Util.rand_r(
+        this.config.NanoMachine.Max,
+        this.config.NanoMachine.Min
+    );
     private TARGET_NM       = Math.floor(Math.random() * this.NM_NUMBER);
 
     /***********************************************
@@ -57,7 +61,7 @@ export default class DNAAnimation extends ThreeAnimation<THREE.PerspectiveCamera
         this.animationID    = 0;
         
         this.nanoMachines   = this.createNanoMachines();
-        this.DNA            = new DNA(this.PAIR_NUMBER);
+        this.DNA            = new DNA(this.config.PairNumber);
         
         this.scene.add(this.DNA,...this.nanoMachines);
 
@@ -123,14 +127,18 @@ export default class DNAAnimation extends ThreeAnimation<THREE.PerspectiveCamera
     private createMaterial(): THREE.MeshStandardMaterial {
         let color = 1;
         for(let i=0; i<3 ; i++)color *= Util.rand_r(256,200);
-        console.log('NanoMachine Color:','0x' + color.toString());
         return new THREE.MeshStandardMaterial({color:color-1});
     }
 
-    private createPosition(): THREE.Vector3 {
-        const x = Util.rand_r(150,50)-100;
-        const y = Util.rand_r(50,10);
-        const z = Util.rand_r(150,50)-100;     
+    private createNmPosition(): THREE.Vector3 {
+        const posConf = this.config.NmPosition;
+        const planeMax = posConf.XZ.Max;
+        const planeMin = posConf.XZ.Min;
+        const minus = planeMax - planeMin;
+
+        const x = Util.rand_r(planeMax,planeMin)-minus;
+        const y = Util.rand_r(posConf.Y.Max,posConf.Y.Min);
+        const z = Util.rand_r(planeMax,planeMin)-minus;     
         console.log('nmpos:',x,y,z);  
         return new THREE.Vector3(x,y,z);
     }
@@ -139,7 +147,7 @@ export default class DNAAnimation extends ThreeAnimation<THREE.PerspectiveCamera
         for(let i = 0; i <= this.NM_NUMBER; i++){
             const material = this.createMaterial();
             const nm = new NanoMachine(material);
-            nm.position.copy(this.createPosition());
+            nm.position.copy(this.createNmPosition());
             nanomachines.push(nm);
         }
         this.scene.add(...nanomachines);

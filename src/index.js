@@ -9,7 +9,7 @@ import {startVideo} from 'devise'
 import {WsSock} from 'socket'
 
 const config = CONFIG.WebSocket;
-const webSock = new WsSock(`ws://${config.Address}:${config.Port}/`);
+const webSock = new WsSock(`wss://${config.Address}:${config.Port}${config.Path}`);
 
 (()=> {
     startVideo();

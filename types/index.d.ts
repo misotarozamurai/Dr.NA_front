@@ -9,18 +9,22 @@ type MaterialPair = [THREE.Material,THREE.Material];
 type ColorPair = [number,number];
 
 // JSON認識用型(かなりガバいので注意)
-type Json = {
-    [key: string]: JsonValue
-};
 
-type JsonValue =
-    | string
-    | number
-    | boolean
-    | JsonValueArray
-    | Json;
+// type JsonValue =
+//     | string
+//     | number
+//     | boolean
+//     | JsonValueArray
+//     | JsonObject;
 
-interface JsonValueArray extends Array<JsonValue>{}
+// interface JsonObject {
+//     [key: string]: JsonValue;
+// }
+
+// interface JsonValueArray extends Array<JsonValue>{}
 
 // reading webpack Define Plugin
-declare const CONFIG: Json;
+// declare const CONFIG: JsonObject;
+
+// 冗長になりすぎるので逃げましたごめんなさい。。。。。
+declare const CONFIG: any;

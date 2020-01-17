@@ -1,6 +1,6 @@
 {
     "WebSocket": {
-        "address": "localhost",
-        "port": "8080"
+        "Address": "dr-na.mydns.jp",
+        "Port": "8889"
     }
 }

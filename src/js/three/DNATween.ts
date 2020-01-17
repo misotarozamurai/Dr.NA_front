@@ -6,7 +6,8 @@ import {NanoMachine,BaseMesh,Pair} from './parts';
 
 export default class DNATween {
 
-    private CAMERA_PULL = 40;
+    // private CAMERA_PULL = 40;
+    private readonly config = CONFIG.Three.DNA.Tween;
 
     private nm:             NanoMachine;
     private target:         BaseMesh;
@@ -21,16 +22,25 @@ export default class DNATween {
     private moveEndTween:   TWEEN.Tween;
     private rotateTween:    TWEEN.Tween;
     private cameraTween:    TWEEN.Tween;
-    private pargeTween:     TWEEN.Tween[];
+    private pargeTweens:     TWEEN.Tween[];
 
     private _isComplete:     Boolean;
     
 
-    constructor(nm: NanoMachine, targetPair: Pair, target: BaseMesh, materials: THREE.Material[], camera: THREE.Camera ) {
+    constructor(
+        nm:         NanoMachine,
+        targetPair: Pair,
+        target:     BaseMesh,
+        materials:  THREE.Material[],
+        camera:     THREE.Camera 
+    ) {
         
         this.nm = nm;
         this.target = target;
-        this.targetPos = new THREE.Vector3().copy(this.target.getWorldPosition(new THREE.Vector3));
+        this.targetPos = 
+            new THREE.Vector3().copy(
+                this.target.getWorldPosition(new THREE.Vector3)
+            );
         this.targetPair = targetPair;
         this.camera = camera;
         this.prevNmPos = this.nm.position.clone();
@@ -39,28 +49,49 @@ export default class DNATween {
         // camera reset 
         this.traceCamera();
 
-        const cam_last = new THREE.Vector3(this.CAMERA_PULL,targetPair.position.y,this.CAMERA_PULL);
-
-        this.cameraTween = new TWEEN.Tween(this.camera.position)
-            .to(cam_last,3500)
-            .delay(1000)
+        const cam_last =
+            new THREE.Vector3(
+                this.config.CameraPull,
+                targetPair.position.y,
+                this.config.CameraPull
+            );
+        
+        this.cameraTween =
+            new TWEEN.Tween(this.camera.position)
+            .to(cam_last,this.config.Times.CameraLast)
+            .delay(this.config.Times.CameraDeley)
             .onUpdate(() => this.camera.lookAt(targetPair.position))
             .onComplete(()=> this._isComplete = true);
 
-        this.pargeTween = [];
-        materials.forEach((material) => this.pargeTween.push(new TWEEN.Tween(material).to({opacity:0},1500)));
-        this.pargeTween[0].onComplete(()=>nm.remove(nm.horns,nm.tail));
+        this.pargeTweens = [];
+        materials.forEach(
+            material => this.pargeTweens.push(
+                new TWEEN.Tween(material)
+                .to({opacity:0},this.config.Times.Parge)
+            )
+        );
+        this.pargeTweens[0]
+            .onComplete(()=>nm.remove(nm.horns,nm.tail));
 
-        this.rotateTween = new TWEEN.Tween(this.nm.quaternion)
-            .to(this.target.quaternion.clone().setFromEuler(new THREE.Euler(0,0,Util.rad(180))),3000)
+        this.rotateTween = 
+            new TWEEN.Tween(this.nm.quaternion)
+            .to(
+                this.target.quaternion
+                    .clone()
+                    .setFromEuler(
+                        new THREE.Euler(0,0,Util.rad(180))
+                    ),
+                this.config.Times.Rotate
+            )
             .chain(this.cameraTween);
 
-        this.moveEndTween = new TWEEN.Tween(this.nm.position)
-            .to(this.targetPos,7000)
+        this.moveEndTween = 
+            new TWEEN.Tween(this.nm.position)
+            .to(this.targetPos,this.config.Times.Move)
             .easing(TWEEN.Easing.Quadratic.In)
             .onUpdate(this.moveUpdate)
             .onComplete(this.moveComplete)
-            .chain(this.rotateTween,...this.pargeTween);    
+            .chain(this.rotateTween,...this.pargeTweens);    
 
         // const middlePos = new THREE.Vector3(this.nm.position.x,1000,this.nm.position.z);
         // this.moveFirstTween = new TWEEN.Tween(this.nm.position)
@@ -78,7 +109,7 @@ export default class DNATween {
 
     private traceCamera(): void {
         const back = this.nmForward.clone().negate();
-        back.multiplyScalar(this.CAMERA_PULL);
+        back.multiplyScalar(this.config.CameraPull);
         const camera_pos = back.add(this.nm.getWorldPosition(new THREE.Vector3));
         this.camera.position.copy(camera_pos);
         this.camera.position.y += 10;
@@ -88,7 +119,6 @@ export default class DNATween {
     private moveUpdate = (): void => {
         this.rotateNm();
         this.traceCamera();
-        // this.scene.add(new THREE.ArrowHelper(this.nmForward,this.nm.position,1,1,1,1));
     }
 
     private moveComplete = (): void => {
@@ -98,7 +128,11 @@ export default class DNATween {
 
     public start(): void {this.moveEndTween.start()}
 
-    public isPlaying(): boolean{return this.moveEndTween.isPlaying() || this.rotateTween.isPlaying() || this.cameraTween.isPlaying()} 
+    public isPlaying(): boolean { 
+        return this.moveEndTween.isPlaying() 
+            || this.rotateTween.isPlaying() 
+            || this.cameraTween.isPlaying();
+    } 
 
     get isComplete(): Boolean {
         return this._isComplete;
@@ -109,6 +143,10 @@ export default class DNATween {
         this.target.getWorldPosition(this.targetPos);
         this.prevNmPos = this.nm.position.clone();
         TWEEN.update();
-        this.nmForward = this.nm.position.clone().sub(this.prevNmPos).normalize();
+        this.nmForward = 
+            this.nm.position
+            .clone()
+            .sub(this.prevNmPos)
+            .normalize();
     }
 }

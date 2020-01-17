@@ -1,12 +1,11 @@
 import * as THREE from 'three';
 import { BaseMesh } from './';
-import BaseConst from './BaseConst';
 
 export class Pair extends THREE.Group {
-    private BASE_LENGTH = BaseConst.LENGTH;
+    private readonly config = CONFIG.Three.Parts.Base;
     private BASE_POSITION = [
-        -(this.BASE_LENGTH/2),
-        this.BASE_LENGTH/2
+        -(this.config.Length/2),
+        this.config.Length/2
     ];   
 
     private materials: MaterialPair;
