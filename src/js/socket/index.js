@@ -14,7 +14,7 @@ export const dataFlaw = {
 }
 
 // ----- Socket storage -----
-export const sockObj = {
+const sockObj = {
     _sock: null,
     get sock() {
         return this._sock;
@@ -54,4 +54,12 @@ export class WsSock extends WebSocket {
             }
         };
     } 
+}
+
+export const messageSend = (type, message) => {
+    const _message = {
+        "type": type,
+        "message": message
+    }
+    sockObj.sock.send(JSON.stringify(_message));
 }
