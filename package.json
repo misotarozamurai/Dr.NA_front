@@ -1,0 +1,54 @@
+{
+  "name": "dr.na_front",
+  "version": "0.9.0",
+  "description": "Dr.NA's frontend",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack -w",
+    "serve:dev": "webpack -w & node server.js & browser-sync start --config bs.config.js",
+    "serve:dev_secure": "webpack -w & node server.js & browser-sync start --https true --config bs.config.js",
+    "serve:prod": "NODE_ENV=production webpack --mode=production & node server.js",
+    "bn": "babel-node ./src/index.js",
+    "deploy": "gh-pages -d ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/misotarozamurai/Dr.NA_front.git"
+  },
+  "author": "Aoi Satonaka",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/misotarozamurai/Dr.NA_front/issues"
+  },
+  "homepage": "https://github.com/misotarozamurai/Dr.NA_front#readme",
+  "devDependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "@types/cannon": "^0.1.4",
+    "@types/node": "^12.12.17",
+    "@types/tween.js": "^17.2.0",
+    "babel-loader": "^8.0.6",
+    "browser-sync": "^2.26.7",
+    "css-loader": "^3.4.0",
+    "gh-pages": "^2.2.0",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^8.0.0",
+    "serialize-javascript": "^2.1.2",
+    "style-loader": "^1.1.1",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.2",
+    "webpack": "^4.41.4",
+    "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {
+    "@tweenjs/tween.js": "^18.5.0",
+    "cannon": "^0.6.2",
+    "config": "^3.2.4",
+    "core-js": "^3.4.1",
+    "lodash": "^4.17.15",
+    "regenerator-runtime": "^0.13.3",
+    "smoothie": "^1.35.0",
+    "three": "^0.110.0"
+  }
+}
