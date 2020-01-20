@@ -16,7 +16,7 @@ export class Pair extends THREE.Group {
         this.createPair();
     }
 
-    private createPair = ():void => {
+    private createPair = (): void => {
         const color_selector = Math.random()<.5;
         const pair = [
                 new BaseMesh(this.materials[+!color_selector]),

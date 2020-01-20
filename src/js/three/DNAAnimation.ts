@@ -70,7 +70,7 @@ export default class DNAAnimation extends ThreeAnimation<THREE.PerspectiveCamera
 
         const targetPair    = <Pair>this.DNA.pairs.children[this.TARGET_PAIR];
 
-        this.targetBase     = <BaseMesh>targetPair.children[this.TARGET_BASE];
+        this.targetBase     = <BaseMesh>targetPair.children[this.TARGET_BASE];        
 
         this.targetClone    = this.targetBase.clone();
         this.targetClone.material = new THREE.MeshBasicMaterial({transparent: true, opacity: 0});

@@ -50,7 +50,7 @@
                 "Horns": "horn.gltf",
                 "Tail": "tail.gltf"
             },
-            "AssetsPath": "../assets/"
+            "AssetsPath": "assets/"
         },
         "DNA": {
             "Animation": {
